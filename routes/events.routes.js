@@ -35,7 +35,7 @@ router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res
 
     Event
         .create({ title, guideName, description, cover, location, date, departments, language })
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/events'))
         .catch(err => next(err))
 })
 
@@ -49,8 +49,6 @@ router.get("/list", (req, res, next) => {
         .then((events => res.render('events/list', { events })))
         .catch(err => next(err))
 })
-
-
 
 
 
@@ -76,7 +74,10 @@ router.get("/details/:event_id", (req, res, next) => {
 
     Event
         .findById(event_id)
-        .then(event => res.render('events/details', event))
+        .populate('guideName')
+        .then(event => {
+            res.render('events/details', event)
+        })
         .catch(err => next(err))
 })
 

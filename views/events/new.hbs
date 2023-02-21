@@ -11,7 +11,7 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-md-6">
+        <div class="col-md-8">
 
             <form action="/events/create" method="POST" enctype="multipart/form-data">
 
@@ -34,13 +34,17 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-8">
-                        <div class="mb-3">
-                            <label for="guide" class="form-label">Guide:</label>
-                            <input type="text" class="form-control" id="guide" name="guideName">
-                        </div>
+                    <div class="col-9 mb-3">
+                        <label for="department" class="form-label">Department:</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected disabled>Open to select</option>
+                            {{#each departments}}
+                            <option value="{{name}}" name="name">{{name}}</option>
+                            {{/each}}
+                        </select>
                     </div>
-                    <div class="col-4">
+
+                    <div class="col-3">
                         <label for="language" class="form-label">Language:</label>
                         <select class="form-select" aria-label="Default select example">
                             <option selected disabled>Open to select</option>
@@ -52,24 +56,12 @@
                     </div>
                 </div>
 
-
-                <div class="mb-3">
-                    <label for="department" class="form-label">Department:</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected disabled>Open to select</option>
-                        {{#each departments}}
-                        <option value="{{name}}" name="name">{{name}}</option>
-                        {{/each}}
-                    </select>
-                    {{!-- <input type="text" class="form-control" id="department" name="department"> --}}
-                </div>
-
-                <div class="mb-3">
+                <div class=" mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="eventDescription" rows="3" name="description"></textarea>
                 </div>
 
-                <div class="mb-3 row">
+                <div class=" mb-3 ">
                     <div class="col">
                         <label for="date" class="form-label">Date:</label>
                         <input type="date" class="form-control" id="date" name="day">
@@ -81,12 +73,6 @@
                         <div class="form-text">Required.</div>
                     </div>
                 </div>
-
-                {{!-- <div class="mb-3">
-                    <label for="department" class="form-label">Participants:</label>
-                    <input type="text" class="form-control" id="department" name="department">
-                </div> --}}
-
 
                 <div class="d-grid gap-2 mb-3">
                     <label for="cover" class="form-label">Imagen</label>
