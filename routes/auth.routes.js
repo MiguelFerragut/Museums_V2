@@ -11,7 +11,8 @@ router.get('/signup', (req, res, next) => res.render('auth/signup'))
 
 router.post('/signup', (req, res, next) => {
 
-    const { password, username, avatar, email } = req.body
+    const { password, username, email } = req.body
+    const { path: avatar } = req.file
 
     bcrypt
         .genSalt(saltRounds)

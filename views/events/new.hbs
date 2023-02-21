@@ -13,7 +13,7 @@
 
         <div class="col-md-6">
 
-            <form action="/events/create" method="POST">
+            <form action="/events/create" method="POST" enctype="multipart/form-data">
 
                 <div class="mb-3 row">
                     <div class="col">
@@ -70,12 +70,12 @@
                 <div class="mb-3 row">
                     <div class="col">
                         <label for="date" class="form-label">Date:</label>
-                        <input type="text" class="form-control" id="date" name="date">
+                        <input type="date" class="form-control" id="date" name="day">
                         <div class="form-text">Reqired.</div>
                     </div>
                     <div class="col">
                         <label for="duration" class="form-label">Duration:(hours)</label>
-                        <input type="text" class="form-control" id="duration" name="duration">
+                        <input type="number" class="form-control" id="duration" name="duration">
                         <div class="form-text">Required.</div>
                     </div>
                 </div>
@@ -86,13 +86,12 @@
                 </div> --}}
 
 
-                <div class="mb-3">
-                    <label for="cover" class="form-label">Image</label>
-                    <input type="text" class="form-control" id="eventCover" name="cover">
-                    <div class="form-text">Insert an image.</div>
+                <div class="d-grid gap-2 mb-3">
+                    <label for="cover" class="form-label">Imagen</label>
+                    <input type="file" class="form-control" id="cover" name="cover">
                 </div>
 
-                <div class="d-grid gap-2">
+                <div class="d-grid gap-2 mb-3">
                     <button type="submit" class="btn btn-dark block">Complete register.</button>
                 </div>
 

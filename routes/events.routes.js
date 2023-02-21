@@ -3,8 +3,9 @@ const Event = require("../models/Event.model")
 const Museum = require("../models/Museum.model")
 const User = require("../models/User.model")
 const Department = require('../models/Department.model')
+const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
-
+const { isLoggedIn } = require('../middlewares/route-guard')
 
 // llevar la lista de departamentos a la vista
 // Rellenar desplegable idiomas                                 //a cholon, q no sera la forma
@@ -12,21 +13,27 @@ const Department = require('../models/Department.model')
 
 // Create Event
 
-router.get('/create', (req, res, next) => {
+router.get('/create', isLoggedIn, (req, res, next) => {
 
     res.render('events/new')
 })
 
-router.post('/create', (req, res, next) => {
+router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res, next) => {
 
-    const { title, guideName, description, cover, longitude, latitude, date, participants, departments, language } = req.body
+    const { title, description, longitude, latitude, day, duration, departments, language } = req.body
+    const guideName = req.session.currentUser._id
+    const { path: cover } = req.file
+    const date = {
+        day: day,
+        duration: duration
+    }
     const location = {
         type: 'Point',
         coordinates: [longitude, latitude]
     }
 
     Event
-        .create({ title, guideName, description, cover, location, date, participants, departments, language })
+        .create({ title, guideName, description, cover, location, date, departments, language })
         .then(() => res.redirect('/'))
         .catch(err => next(err))
 })
