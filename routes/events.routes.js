@@ -14,7 +14,13 @@ const Department = require('../models/Department.model')
 
 router.get('/create', (req, res, next) => {
 
-    res.render('events/new')
+    Department
+        .find()
+        .select({ name: 1 })
+        .sort({ name: 1 })
+        .then(departments => res.render('events/new', { departments }))
+        .catch(err => next(err))
+
 })
 
 router.post('/create', (req, res, next) => {
