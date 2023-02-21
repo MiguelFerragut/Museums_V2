@@ -14,11 +14,6 @@ const Department = require('../models/Department.model')
 
 router.get('/create', (req, res, next) => {
 
-    Event
-    Department.find(
-
-    )
-
     res.render('events/new')
 })
 
