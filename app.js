@@ -14,7 +14,7 @@ const projectName = "Museums";
 
 app.locals.appTitle = `${projectName}`;
 
-require('./config/session.config')
+require('./config/session.config')(app)
 
 require('./routes')(app)
 

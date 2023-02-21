@@ -14,6 +14,7 @@ router.get('/create', (req, res, next) => {
 
     // llevar la lista de departamentos a la vista
     // Rellenar desplegable idiomas                                 //a cholon, q no sera la forma
+
     // Implementar cloudinary imagen
 
     res.render('events/new')
