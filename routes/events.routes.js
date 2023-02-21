@@ -28,10 +28,13 @@ router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res
         day: day,
         duration: duration
     }
+    console.log(departments)
+
     const location = {
         type: 'Point',
         coordinates: [longitude, latitude]
     }
+
 
     Event
         .create({ title, guideName, description, cover, location, date, departments, language })
@@ -75,9 +78,8 @@ router.get("/details/:event_id", (req, res, next) => {
     Event
         .findById(event_id)
         .populate('guideName')
-        .then(event => {
-            res.render('events/details', event)
-        })
+        .populate('departments')
+        .then(event => res.render('events/details', event))
         .catch(err => next(err))
 })
 
