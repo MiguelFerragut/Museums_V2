@@ -48,6 +48,7 @@ router.get("/list", (req, res, next) => {
 
     Event
         .find()
+        .populate('departments')
         .sort({ title: 1 })
         .then((events => res.render('events/list', { events })))
         .catch(err => next(err))
