@@ -12,6 +12,10 @@ class MetApiService {
         return this.api.get('/departments')
     }
 
+    getFilteredItems(parameter, parameterValue, query) {
+        return this.api.get(`/search?${parameter}=${parameterValue}&q=${query}`).then(res => res.data)
+    }
+
     // getOneCharacter(characterId) {
     //     return this.api.get(`/characters/${characterId}`)
     // }

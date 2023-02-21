@@ -1,5 +1,11 @@
 const router = require("express").Router()
 const Museum = require("../models/Museum.model")
+const Department = require('../models/Department.model')
+
+const metApi = require('../services/met.service')
+const api = new metApi()
+
+
 
 
 //Create Museum
@@ -31,9 +37,36 @@ router.get("/list", (req, res, next) => {
 })
 
 
-//Museums Filter                                                                    //OJO! SIN HACER
-router.get("/filter", (req, res, next) => {
+//Museums Filter    
 
+router.get('/filter', (req, res, next) => {
+
+    Department
+        .find()
+        .select({ name: 1, reference: 1 })
+        .sort({ name: 1 })
+        .then(departments => res.render('museums/filter', { departments }))
+        .catch(err => next(err))
+
+})
+
+router.post("/filter", (req, res, next) => {
+
+    const { departments, query } = req.body
+
+    const promises = [api.getFilteredItems('departmentIds', departments, query), api.getFilteredItems('isHighlight', true, 'sun')]
+
+    Promise
+        .all(promises)
+        .then(([promise1, promise2]) => {
+            console.log('EL CONSOLE LOGGGG', promise1)
+            let filtredItems = promise2.objectIDs.filter(elm => {
+                if (promise1.objectIDs.includes(elm)) {
+                    return elm
+                }
+            })
+            console.log({ filtredItems })
+        })
     res.render('museums/filter')
 })
 

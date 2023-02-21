@@ -1,8 +1,50 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-8">
-            <h1>Museum Filter</h1>
+            <h1>Searcher</h1>
             <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <form action="/museums/filter" method="POST">
+
+                <div class="mb-3 row">
+                    <div class="col-9 mb-3">
+                        <label for="departments" class="form-label">Department:</label>
+                        <select class="form-select" aria-label="Default select example" name="departments">
+                            <option selected disabled>Open to select</option>
+                            {{#each departments}}
+                            <option value="{{reference}}" name="departments">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="query" class="form-label">Word</label>
+                    <input type="text" class="form-control" id="query" name="query">
+                    <div class="form-text">Required.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark block">Search.</button>
+                </div>
+
+                {{#if errorMessage}}
+                <div id="errorMessage">
+                    <p>{{errorMessage}}</p>
+                </div>
+                {{/if}}
+
+            </form>
         </div>
     </div>
 </div>

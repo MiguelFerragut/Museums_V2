@@ -38,7 +38,7 @@ router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res
 
     Event
         .create({ title, guideName, description, cover, location, date, departments, language })
-        .then(() => res.redirect('/events'))
+        .then(() => res.redirect('/events/list'))
         .catch(err => next(err))
 })
 
@@ -112,7 +112,7 @@ router.post('/edit/:event_id', (req, res, next) => {
 
     Event
         .findByIdAndUpdate(event_id, { title, guideName, description, cover, longitude, latitude, date, participants, departments, language })
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/events/list'))
         .catch(err => next(err))
 })
 
@@ -124,7 +124,7 @@ router.post('/delete/:event_id', (req, res, next) => {
 
     Event
         .findByIdAndDelete(event_id)
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/events/list'))
         .catch(err => next(err))
 })
 
