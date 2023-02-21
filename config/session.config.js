@@ -17,7 +17,7 @@ module.exports = app => {
                 maxAge: 60000000
             },
             store: MongoStore.create({
-                mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost/museums-app'
+                mongoUrl: process.env.MONGODB_URI || 'mongodb+srv://IronhackMuseums:Ironhack0123@cluster0.2z7janl.mongodb.net/museums'
             })
         })
     );

@@ -6,15 +6,18 @@ const Department = require('../models/Department.model')
 
 
 
-
+// llevar la lista de departamentos a la vista
+// Rellenar desplegable idiomas                                 //a cholon, q no sera la forma
+// Implementar cloudinary imagen
 
 // Create Event
 
 router.get('/create', (req, res, next) => {
 
-    // llevar la lista de departamentos a la vista
-    // Rellenar desplegable idiomas                                 //a cholon, q no sera la forma
-    // Implementar cloudinary imagen
+    Event
+    Department.find(
+
+    )
 
     res.render('events/new')
 })

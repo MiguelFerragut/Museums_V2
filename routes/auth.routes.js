@@ -35,6 +35,7 @@ router.post('/login', (req, res, next) => {
                 res.render('auth/login', { errorMessage: 'Wrong password.' })
                 return
             } else {
+                console.log(req.session)
                 req.session.currentUser = user
                 res.redirect('/')
             }
