@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1>Sign Up</h1>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <h1>Sign Up</h1>
+            <hr>
+
+            <form action="/signup" method="POST">
+
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                        <div class="form-text">Reqired.</div>
+                    </div>
+                    <div class="col">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                        <div class="form-text">Required.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">User name</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Image</label>
+                    <input type="imageUrl" class="form-control" id="imageUrl" name="avatar">
+                    <div class="form-text">Insert an image.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark block">Complete register.</button>
+                </div>
+
+                {{#if errorMessage}}
+                <div id="errorMessage">
+                    <p>{{errorMessage}}</p>
+                </div>
+                {{/if}}
+
+            </form>
+        </div>
+    </div>
+</div>

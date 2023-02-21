@@ -1,0 +1,65 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1>Museum Editing Form</h1>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <form action="/museums/edit/{{_id}}" method="POST">
+
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="longitude" class="form-label">Location Longitude</label>
+                        <input type="text" class="form-control" id="museumLongitud" name="longitude"
+                            value="{{location.coordinates.[0]}}">
+                        <div class="form-text">Reqired.</div>
+                    </div>
+                    <div class="col">
+                        <label for="latitude" class="form-label">Location Latitude</label>
+                        <input type="text" class="form-control" id="museumLatitude" name="latitude"
+                            value="{{location.coordinates.[1]}}">
+                        <div class="form-text">Required.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="museumName" name="name" value="{{name}}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea class="form-control" id="museumDescription" rows="3" name="description"
+                        value="{{description}}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cover" class="form-label">Image</label>
+                    <input type="text" class="form-control" id="museumCover" name="cover" value="">
+                    <div class="form-text">Insert an image.</div>
+                </div>
+
+                <input type="hidden" name="_id" value="{{_id}}">
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark block">Complete editing.</button>
+                </div>
+
+                {{#if errorMessage}}
+                <div id="errorMessage">
+                    <p>{{errorMessage}}</p>
+                </div>
+                {{/if}}
+
+            </form>
+        </div>
+    </div>
+</div>

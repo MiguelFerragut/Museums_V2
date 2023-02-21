@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1>Events List</h1>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-10 justify-content-between">
+
+            <table class="table">
+                <tbody>
+                    {{#each events }}
+                    <tr>
+                        <td>
+                            <h3>{{ title }}</h3>
+                        </td>
+                        <td>
+                            <h3>{{ department }}</h3>
+                        </td>
+                        <td>
+                            <a href="/events/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
+                        </td>
+                        <td>
+                            <a href="/events/edit/{{_id}}" class="btn btn-dark btn-sm">Edit</a>
+                        </td>
+                        <td>
+                            <form action="/events/delete/{{_id}}" method="POST">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                            </form>
+                        </td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

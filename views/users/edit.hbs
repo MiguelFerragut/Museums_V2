@@ -1,0 +1,52 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1>Edition Form</h1>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <form action="/users/edit/{{_id}}" method="POST">
+
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{email}}">
+                        <div class="form-text">Reqired.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">User name</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{username}}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="avatar" class="form-label">Image</label>
+                    <input type="avatar" class="form-control" id="avatar" name="avatar" value="">
+                    <div class="form-text">Insert an image.</div>
+                </div>
+
+                <input type="hidden" name="_id" value="{{_id}}">
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark block">Complete edition</button>
+                </div>
+
+                {{#if errorMessage}}
+                <div id="errorMessage">
+                    <p>{{errorMessage}}</p>
+                </div>
+                {{/if}}
+
+            </form>
+        </div>
+    </div>
+</div>

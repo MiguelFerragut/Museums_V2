@@ -1,0 +1,101 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1>Event Edition Form</h1>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <form action="/events/edit/:event_id" method="POST">
+
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="longitude" class="form-label">Location Longitude</label>
+                        <input type="text" class="form-control" id="museumLongitud" name="longitude"
+                            value="{{location.coordinates.[0]}}">
+                        <div class="form-text">Reqired.</div>
+                    </div>
+                    <div class="col">
+                        <label for="latitude" class="form-label">Location Latitude</label>
+                        <input type="text" class="form-control" id="museumLatitude" name="latitude"
+                            value="{{location.coordinates.[1]}}">
+                        <div class="form-text">Required.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" class="form-control" id="eventTitle" name="title" value="{{title}}">
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="mb-3">
+                            <label for="guide" class="form-label">Guide:</label>
+                            <input type="text" class="form-control" id="guide" name="guideName" value="{{guideName}}">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="language" class="form-label">Language:</label>
+                        <input type="text" class="form-control" id="language" name="language" value="{{language}}">
+                        <div class="form-text">Reqired.</div>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department:</label>
+                    <input type="text" class="form-control" id="department" name="department" value="{{department}}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="eventDescription" rows="3" name="description"
+                        value="{{description}}"></textarea>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="date" class="form-label">Date:</label>
+                        <input type="text" class="form-control" id="date" name="date" value="{{date}}">
+                        <div class="form-text">Reqired.</div>
+                    </div>
+                    <div class="col">
+                        <label for="duration" class="form-label">Duration:(hours)</label>
+                        <input type="text" class="form-control" id="duration" name="duration" value="{{duration}}">
+                        <div class="form-text">Required.</div>
+                    </div>
+                </div>
+
+                {{!-- <div class="mb-3">
+                    <label for="department" class="form-label">Participants:</label>
+                    <input type="text" class="form-control" id="department" name="department">
+                </div> --}}
+
+
+                <div class="mb-3">
+                    <label for="cover" class="form-label">Image</label>
+                    <input type="text" class="form-control" id="eventCover" name="cover">
+                    <div class="form-text">Insert an image.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark block">Complete editing.</button>
+                </div>
+
+                {{#if errorMessage}}
+                <div id="errorMessage">
+                    <p>{{errorMessage}}</p>
+                </div>
+                {{/if}}
+
+            </form>
+        </div>
+    </div>
+</div>

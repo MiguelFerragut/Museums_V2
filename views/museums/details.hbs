@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1>Museun Details</h1>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width: 28rem;">
+            <img src="{{cover}}" class="card-img-top" alt="{{name}}">
+            <div class="card-body m-3">
+                <h5 class="card-title"><b>Name: </b>{{name}}</h5>
+            </div>
+            <ul class="list-group list-group-flush m-3">
+                <li class="list-group-item"><b>Description: </b>{{description}}</li>
+                {{!-- <li class="list-group-item"><b>Location: </b>{{longitude}}, {{latitude}}</li> --}}
+                <li>
+                    <div class="mb-2 row mt-2">
+                        <div class="col">
+                            <label for="longitude" class="form-label">Longitude:</label>
+                            <input type="text" class="form-control" id="museumLongitud" name="longitude"
+                                value="{{location.coordinates.[0]}}">
+                        </div>
+                        <div class="col">
+                            <label for="latitude" class="form-label">Latitude:</label>
+                            <input type="text" class="form-control" id="museumLatitude" name="latitude"
+                                value="{{location.coordinates.[1]}}">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="card-body d-flex justify-content-between m-3">
+                <a href="/museums/edit/{{_id}}" class="btn btn-dark btn-lg">Edit</a>
+                <form action="/museums/delete/{{_id}}" method="POST">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-lg">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
