@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const bcrypt = require('bcryptjs')
+const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 const { isLoggedOut } = require("../middlewares/route-guard")
 
@@ -9,7 +10,7 @@ const saltRounds = 10
 
 router.get('/signup', (req, res, next) => res.render('auth/signup'))
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', uploaderMiddleware.single('avatar'), (req, res, next) => {
 
     const { password, username, email } = req.body
     const { path: avatar } = req.file

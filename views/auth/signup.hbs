@@ -16,7 +16,7 @@
             <h1>Sign Up</h1>
             <hr>
 
-            <form action="/signup" method="POST">
+            <form action="/signup" method="POST" enctype="multipart/form-data">
 
                 <div class="mb-3 row">
                     <div class="col">
@@ -36,10 +36,9 @@
                     <input type="text" class="form-control" id="username" name="username">
                 </div>
 
-                <div class="mb-3">
-                    <label for="imageUrl" class="form-label">Image</label>
-                    <input type="imageUrl" class="form-control" id="imageUrl" name="avatar">
-                    <div class="form-text">Insert an image.</div>
+                <div class="d-grid gap-2 mb-3">
+                    <label for="avatar" class="form-label">Imagen</label>
+                    <input type="file" class="form-control" id="avatar" name="avatar">
                 </div>
 
                 <div class="d-grid gap-2">

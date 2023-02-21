@@ -7,12 +7,7 @@ const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 const { isLoggedIn } = require('../middlewares/route-guard')
 
-// llevar la lista de departamentos a la vista
-// Rellenar desplegable idiomas                                 //a cholon, q no sera la forma
-// Implementar cloudinary imagen
-
 // Create Event
-
 router.get('/create', isLoggedIn, (req, res, next) => {
 
     Department
@@ -51,7 +46,7 @@ router.get("/list", (req, res, next) => {
     Event
         .find()
         .sort({ title: 1 })
-        .then((events => res.render('museums/list', { events })))
+        .then((events => res.render('events/list', { events })))
         .catch(err => next(err))
 })
 
