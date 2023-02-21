@@ -7,9 +7,7 @@ const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 const { isLoggedIn } = require('../middlewares/route-guard')
 
-
 // Create Event
-
 router.get('/create', isLoggedIn, (req, res, next) => {
 
     Department
