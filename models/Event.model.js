@@ -28,7 +28,7 @@ const eventSchema = new Schema(
             },
             coordinates: [Number],
         },
-        date: {                     //We think day just allow you to set a day between mon and sun but what about the month and year????
+        date: {
             day: {
                 type: Date,
                 required: true

@@ -1,4 +1,5 @@
 const router = require("express").Router()
+
 const Museum = require("../models/Museum.model")
 const Department = require('../models/Department.model')
 
@@ -6,9 +7,6 @@ const metApi = require('../services/met.service')
 const api = new metApi()
 
 
-
-
-//Create Museum
 router.get('/create', (req, res, next) => { res.render('museums/new') })
 
 router.post('/create', (req, res, next) => {
@@ -26,7 +24,6 @@ router.post('/create', (req, res, next) => {
 })
 
 
-//Museums List
 router.get("/list", (req, res, next) => {
 
     Museum
@@ -37,7 +34,6 @@ router.get("/list", (req, res, next) => {
 })
 
 
-//Museums Filter
 router.get('/filter', (req, res, next) => {
 
     Department
@@ -70,7 +66,6 @@ router.post("/filter", (req, res, next) => {
 })
 
 
-//Museum Details
 router.get("/details/:museum_id", (req, res, next) => {
 
     const { museum_id } = req.params
@@ -87,7 +82,6 @@ router.get("/details/:museum_id", (req, res, next) => {
 })
 
 
-//Museum Edit
 router.get("/edit/:museum_id", (req, res, next) => {
 
     const { museum_id } = req.params
@@ -119,7 +113,6 @@ router.post('/edit/:museum_id', (req, res, next) => {
 })
 
 
-//Museum Delete
 router.post('/delete/:museum_id', (req, res, next) => {
 
     const { museum_id } = req.params

@@ -1,13 +1,14 @@
 const router = require("express").Router()
+
 const Event = require("../models/Event.model")
 const Museum = require("../models/Museum.model")
 const User = require("../models/User.model")
 const Department = require('../models/Department.model')
-const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
+const uploaderMiddleware = require('../middlewares/uploader.middleware')
 const { isLoggedIn } = require('../middlewares/route-guard')
 
-// Create Event
+
 router.get('/create', isLoggedIn, (req, res, next) => {
 
     Department
@@ -43,7 +44,6 @@ router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res
 })
 
 
-//Event List
 router.get("/list", (req, res, next) => {
 
     Event
@@ -55,15 +55,11 @@ router.get("/list", (req, res, next) => {
 })
 
 
-
 //Events Filter                                                                    //OJO!  ESTA SIN HACER
 router.get("/filter", (req, res, next) => {
 
     res.render('events/filter')
 })
-
-
-
 
 
 //Events Details
@@ -85,7 +81,6 @@ router.get("/details/:event_id", (req, res, next) => {
 })
 
 
-//Event Edit
 router.get("/edit/:event_id", (req, res, next) => {
 
     const { event_id } = req.params
@@ -117,7 +112,6 @@ router.post('/edit/:event_id', (req, res, next) => {
 })
 
 
-//Event Delete
 router.post('/delete/:event_id', (req, res, next) => {
 
     const { event_id } = req.params
