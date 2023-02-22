@@ -30,6 +30,7 @@ router.get("/list", (req, res, next) => {
 
     Museum
         .find()
+        .select({ name: 1 })
         .sort({ name: 1 })
         .then((museums => res.render('museums/list', { museums })))
         .catch(err => next(err))

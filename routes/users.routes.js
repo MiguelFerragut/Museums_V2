@@ -9,7 +9,7 @@ router.get("/list", (req, res, next) => {
 
     User
         .find()
-        // select
+        .select({ username: 1 })
         .sort({ username: 1 })
         .then((users => res.render('users/list', { users })))
         .catch(err => next(err))
