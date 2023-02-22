@@ -1,4 +1,4 @@
-const { Schema, model, SchemaType } = require("mongoose");
+const { Schema, model, SchemaType } = require("mongoose")
 
 const museumSchema = new Schema(
     {
@@ -32,10 +32,10 @@ const museumSchema = new Schema(
     {
         timestamps: true
     }
-);
+)
 
 museumSchema.index({ location: '2dsphere' })
 
-const Museum = model("Museum", museumSchema);
+const Museum = model("Museum", museumSchema)
 
-module.exports = Museum;
+module.exports = Museum 
