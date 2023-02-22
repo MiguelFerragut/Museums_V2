@@ -3,15 +3,16 @@ const bcrypt = require('bcryptjs')
 
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 const { isLoggedOut } = require("../middlewares/route-guard")
+const { isLoggedIn } = require("../middlewares/route-guard")
 
 const User = require("../models/User.model")
 
 const saltRounds = 10
 
 
-router.get('/signup', (req, res, next) => res.render('auth/signup'))
+router.get('/signup', isLoggedOut, (req, res, next) => res.render('auth/signup'))
 
-router.post('/signup', uploaderMiddleware.single('avatar'), (req, res, next) => {
+router.post('/signup', isLoggedOut, uploaderMiddleware.single('avatar'), (req, res, next) => {
 
     const { password, username, email } = req.body
     const { path: avatar } = req.file
@@ -50,7 +51,7 @@ router.post('/login', (req, res, next) => {
 })
 
 
-router.post('/logout', (req, res, next) => {
+router.post('/logout', isLoggedIn, (req, res, next) => {
     req.session.destroy(() => res.redirect('/'))
 })
 
