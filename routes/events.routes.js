@@ -45,6 +45,7 @@ router.get("/list", (req, res, next) => {
 
     Event
         .find()
+        .select({ title: 1, departments: 1 })
         .populate('departments')
         .sort({ title: 1 })
         .then((events => res.render('events/list', { events })))
