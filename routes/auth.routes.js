@@ -1,12 +1,13 @@
 const router = require("express").Router()
 const bcrypt = require('bcryptjs')
-const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
+const uploaderMiddleware = require('../middlewares/uploader.middleware')
 const { isLoggedOut } = require("../middlewares/route-guard")
 
 const User = require("../models/User.model")
 
 const saltRounds = 10
+
 
 router.get('/signup', (req, res, next) => res.render('auth/signup'))
 

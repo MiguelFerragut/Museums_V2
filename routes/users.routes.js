@@ -1,9 +1,10 @@
 const router = require("express").Router()
+
 const User = require("../models/User.model")
+
 const { isLoggedIn, isLoggedOut, checkRole, checkUser } = require('../middlewares/route-guard')
 
 
-//Users List
 router.get("/list", (req, res, next) => {
 
     User
@@ -14,7 +15,6 @@ router.get("/list", (req, res, next) => {
 })
 
 
-//Users Details
 router.get("/details/:user_id", (req, res, next) => {
 
     const { user_id } = req.params
@@ -26,7 +26,6 @@ router.get("/details/:user_id", (req, res, next) => {
 })
 
 
-//User Edit
 router.get("/edit/:user_id", (req, res, next) => {
     const { user_id } = req.params
     User
@@ -47,7 +46,6 @@ router.post('/edit/:user_id', (req, res, next) => {
 })
 
 
-//User Delete
 router.post('/delete/:user_id', (req, res, next) => {
 
     const { user_id } = req.params

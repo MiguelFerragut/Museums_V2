@@ -15,21 +15,6 @@ class MetApiService {
     getFilteredItems(parameter, parameterValue, query) {
         return this.api.get(`/search?${parameter}=${parameterValue}&q=${query}`).then(res => res.data)
     }
-
-    // getOneCharacter(characterId) {
-    //     return this.api.get(`/characters/${characterId}`)
-    // }
-
-    // saveCharacter(characterData) {
-    //     return this.api.post(`/characters`, characterData)
-    // }
-
-    // editCharacter(characterId, characterData) {
-    //     return this.api.put(`/characters/${characterId}`, characterData)
-    // }
-
-    // deleteCharacter(characterId) {
-    // }
 }
 
 module.exports = MetApiService
