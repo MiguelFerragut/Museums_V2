@@ -7,7 +7,9 @@ const metApi = require('../services/met.service')
 const api = new metApi()
 
 
-router.get('/create', (req, res, next) => { res.render('museums/new') })
+router.get('/create', (req, res, next) => {
+    res.render('museums/new')
+})
 
 router.post('/create', (req, res, next) => {
 
@@ -49,14 +51,16 @@ router.post("/filter", (req, res, next) => {
 
     const { departments, query } = req.body
 
-    const promises = [api.getFilteredItems('departmentIds', departments, query), api.getFilteredItems('isHighlight', true, 'sun')]
+    const promises = [
+        api.getFilteredItems('departmentIds', departments, query),
+        api.getFilteredItems('isHighlight', true, 'sun')
+    ]
 
     Promise
         .all(promises)
-        .then(([promise1, promise2]) => {
-            console.log('EL CONSOLE LOGGGG', promise1)
-            let filtredItems = promise2.objectIDs.filter(elm => {
-                if (promise1.objectIDs.includes(elm)) {
+        .then(([departments, highlights]) => {
+            let filtredItems = highlights.objectIDs.filter(elm => {
+                if (departments.objectIDs.includes(elm)) {
                     return elm
                 }
             })

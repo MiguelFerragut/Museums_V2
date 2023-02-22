@@ -23,19 +23,16 @@ router.get('/create', isLoggedIn, (req, res, next) => {
 router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res, next) => {
 
     const { title, description, longitude, latitude, day, duration, departments, language } = req.body
-    const guideName = req.session.currentUser._id
+    const { _id: guideName } = req.session.currentUser
     const { path: cover } = req.file
     const date = {
         day: day,
         duration: duration
     }
-    console.log(departments)
-
     const location = {
         type: 'Point',
         coordinates: [longitude, latitude]
     }
-
 
     Event
         .create({ title, guideName, description, cover, location, date, departments, language })
