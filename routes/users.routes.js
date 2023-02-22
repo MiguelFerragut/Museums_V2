@@ -9,6 +9,7 @@ router.get("/list", (req, res, next) => {
 
     User
         .find()
+        // select
         .sort({ username: 1 })
         .then((users => res.render('users/list', { users })))
         .catch(err => next(err))
@@ -27,7 +28,9 @@ router.get("/details/:user_id", (req, res, next) => {
 
 
 router.get("/edit/:user_id", (req, res, next) => {
+
     const { user_id } = req.params
+
     User
         .findById(user_id)
         .then(user => { res.render('users/edit', user) })
@@ -55,10 +58,6 @@ router.post('/delete/:user_id', (req, res, next) => {
         .then(() => res.redirect('/list'))
         .catch(err => next(err))
 })
-
-
-//User Role
-
 
 
 module.exports = router

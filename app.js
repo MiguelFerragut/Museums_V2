@@ -1,23 +1,18 @@
-require("dotenv").config();
+require("dotenv").config()
 
-require("./db");
+require("./db")
 
-const express = require("express");
+const express = require("express")
+const app = express()
 
-const hbs = require("hbs");
+require("./config")(app)
 
-const app = express();
-
-require("./config")(app);
-
-const projectName = "Museums";
-
-app.locals.appTitle = `${projectName}`;
+const projectName = "Museums"
+app.locals.appTitle = `${projectName}`
 
 require('./config/session.config')(app)
 
 require('./routes')(app)
+require("./error-handling")(app)
 
-require("./error-handling")(app);
-
-module.exports = app;
+module.exports = app
