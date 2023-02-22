@@ -37,8 +37,7 @@ router.get("/list", (req, res, next) => {
 })
 
 
-//Museums Filter    
-
+//Museums Filter
 router.get('/filter', (req, res, next) => {
 
     Department

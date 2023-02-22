@@ -33,17 +33,17 @@ const eventSchema = new Schema(
                 type: Date,
                 required: true
             },
-            duration: Number // minutes
+            duration: Number
         },
-        participants: {                       //Max participants of the event. How should we set it?
+        participants: {
             type: [{
                 type: Schema.Types.ObjectId,
                 ref: 'User'
             }],
-            maxItems: 10                      //Found this but don't really know if it's correct
+            maxItems: 10
         },
         departments: [{
-            ref: 'Department',                        //Museum or department reference? It's the model
+            ref: 'Department',
             type: Schema.Types.ObjectId
         }],
         language: {
