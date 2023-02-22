@@ -1,5 +1,13 @@
+img {
+  width: 100%;
+}
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url('../images/output-onlinepngtools.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 a {
@@ -13,4 +21,8 @@ h1 {
 .card-img-top {
   width: 300px;
 
+}
+
+.card {
+  background-color: rgb(240, 248, 255, 0.6);
 }

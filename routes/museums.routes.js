@@ -4,6 +4,7 @@ const Museum = require("../models/Museum.model")
 const Department = require('../models/Department.model')
 
 const metApi = require('../services/met.service')
+const { filterByDept } = require("../utils/departmentFiltering")
 const api = new metApi()
 
 
@@ -52,23 +53,30 @@ router.post("/filter", (req, res, next) => {
 
     const { departments, query } = req.body
 
-    const promises = [
-        api.getFilteredItems('departmentIds', departments, query),
-        api.getFilteredItems('isHighlight', true, 'sun')
-    ]
-
-    Promise
-        .all(promises)
+    api
+        .getDeptsAndHighlights(departments, query)
         .then(([departments, highlights]) => {
-            let filtredItems = highlights.objectIDs.filter(elm => {
-                if (departments.objectIDs.includes(elm)) {
-                    return elm
-                }
-            })
-            console.log({ filtredItems })
+
+            let filtredItems = filterByDept(departments.data, highlights.data)
+            const promises = filtredItems.map(id => api.getSinglePiece(id))
+
+            return Promise.all(promises)
         })
-    res.render('museums/filter')
+        .then((values) => {
+            console.log(values)
+            res.render('museums/pieces', { values })
+        })
 })
+
+//RUTA A DETALLES DE LA PIEZA
+// router.get("/filter/:piece_id", (req, res, next) => {
+
+//     const { piece_id } = req.params
+
+//     api.getSinglePiece(piece_id)
+//         .then(console.log(value))
+
+// })
 
 
 router.get("/details/:museum_id", (req, res, next) => {

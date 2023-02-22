@@ -1,4 +1,5 @@
 const axios = require('axios')
+const router = require('express').Router()
 
 class MetApiService {
 
@@ -13,7 +14,21 @@ class MetApiService {
     }
 
     getFilteredItems(parameter, parameterValue, query) {
-        return this.api.get(`/search?${parameter}=${parameterValue}&q=${query}`).then(res => res.data)
+        return this.api.get(`/search?${parameter}=${parameterValue}&q=${query}`)
+    }
+
+    getDeptsAndHighlights(parameter1, parameter2) {
+
+        const promises = [
+            this.getFilteredItems('departmentIds', parameter1, parameter2),
+            this.getFilteredItems('isHighlight', true, 'sun')
+        ]
+
+        return Promise.all(promises)
+    }
+
+    getSinglePiece(id) {
+        return this.api.get(`/objects/${id}`).then(res => res.data)
     }
 }
 

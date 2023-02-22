@@ -15,18 +15,38 @@
 
             <form action="/museums/filter" method="POST">
 
-                <div class="mb-3 row">
-                    <div class="col-9 mb-3">
-                        <label for="departments" class="form-label">Department:</label>
-                        <select class="form-select" aria-label="Default select example" name="departments">
-                            <option selected disabled>Open to select</option>
-                            {{#each departments}}
-                            <option value="{{reference}}" name="departments">{{name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label for="departments" class="form-label">Department:</label>
+                    <select class="form-select" aria-label="Default select example" name="departments">
+                        <option selected disabled>Open to select</option>
+                        {{#each departments}}
+                        <option value="{{reference}}" name="departments">{{name}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
+                <div class="input-group mb-3">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="true" id="isHighLight"
+                            aria-label="Checkbox for following text input" name="isHighLight">
+                    </div>
+                    <label for="isHighLight" class="form-control">Do you want to see just the Highlights?</label>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="true" id="isOnView"
+                            aria-label="Checkbox for following text input" name="isOnView">
+                    </div>
+                    <label for="isOnView" class="form-control">Do you want to see just the pieces that are currently on
+                        view?</label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country:</label>
+                    <input type="text" class="form-control" id="country" name="country">
+                    <div class="form-text">Required.</div>
+                </div>
 
                 <div class="mb-3">
                     <label for="query" class="form-label">Word</label>
