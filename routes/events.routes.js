@@ -6,7 +6,7 @@ const User = require("../models/User.model")
 const Department = require('../models/Department.model')
 
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
-const { isLoggedIn } = require('../middlewares/route-guard')
+const { isLoggedIn, checkRole } = require('../middlewares/route-guard')
 
 
 router.get('/create', isLoggedIn, (req, res, next) => {
@@ -20,7 +20,7 @@ router.get('/create', isLoggedIn, (req, res, next) => {
 
 })
 
-router.post('/create', isLoggedIn, uploaderMiddleware.single('cover'), (req, res, next) => {
+router.post('/create', isLoggedIn, checkRole('GUIDE', 'ADMIN'), uploaderMiddleware.single('cover'), (req, res, next) => {
 
     const { title, description, longitude, latitude, day, duration, departments, language } = req.body
     const { _id: guideName } = req.session.currentUser
@@ -60,7 +60,6 @@ router.get("/filter", (req, res, next) => {
 })
 
 
-//Events Details
 router.get("/details/:event_id", (req, res, next) => {
 
     const { event_id } = req.params
@@ -79,7 +78,7 @@ router.get("/details/:event_id", (req, res, next) => {
 })
 
 
-router.get("/edit/:event_id", (req, res, next) => {
+router.get("/edit/:event_id", isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, res, next) => {
 
     const { event_id } = req.params
     const { longitude, latitude } = req.body
@@ -94,7 +93,7 @@ router.get("/edit/:event_id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/edit/:event_id', (req, res, next) => {
+router.post('/edit/:event_id', isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, res, next) => {
 
     const { event_id } = req.params
     const { title, guideName, description, cover, longitude, latitude, date, participants, departments, language } = req.body
@@ -110,7 +109,7 @@ router.post('/edit/:event_id', (req, res, next) => {
 })
 
 
-router.post('/delete/:event_id', (req, res, next) => {
+router.post('/delete/:event_id', isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, res, next) => {
 
     const { event_id } = req.params
 

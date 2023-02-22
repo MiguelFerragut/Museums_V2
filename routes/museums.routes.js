@@ -3,16 +3,20 @@ const router = require("express").Router()
 const Museum = require("../models/Museum.model")
 const Department = require('../models/Department.model')
 
+const { isLoggedIn, checkRole, checkUser } = require('../middlewares/route-guard')
+
+const { getUserRoles } = require('./../utils/userRoles')
+
 const metApi = require('../services/met.service')
 const { filterByDept } = require("../utils/departmentFiltering")
 const api = new metApi()
 
 
-router.get('/create', (req, res, next) => {
+router.get('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
     res.render('museums/new')
 })
 
-router.post('/create', (req, res, next) => {
+router.post('/create', isLoggedIn, checkRole, (req, res, next) => {
 
     const { name, description, cover, longitude, latitude } = req.body
     const location = {
@@ -95,7 +99,7 @@ router.get("/details/:museum_id", (req, res, next) => {
 })
 
 
-router.get("/edit/:museum_id", (req, res, next) => {
+router.get("/edit/:museum_id", isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
 
     const { museum_id } = req.params
     const { longitude, latitude } = req.body
@@ -110,7 +114,7 @@ router.get("/edit/:museum_id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/edit/:museum_id', (req, res, next) => {
+router.post('/edit/:museum_id', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
 
     const { museum_id } = req.params
     const { name, description, cover, longitude, latitude } = req.body
@@ -126,7 +130,7 @@ router.post('/edit/:museum_id', (req, res, next) => {
 })
 
 
-router.post('/delete/:museum_id', (req, res, next) => {
+router.post('/delete/:museum_id', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
 
     const { museum_id } = req.params
 

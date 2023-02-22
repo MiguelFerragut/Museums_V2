@@ -19,8 +19,7 @@ h1 {
 }
 
 .card-img-top {
-  width: 300px;
-
+  background-size: cover;
 }
 
 .card {

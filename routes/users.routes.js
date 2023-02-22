@@ -2,21 +2,27 @@ const router = require("express").Router()
 
 const User = require("../models/User.model")
 
-const { isLoggedIn, isLoggedOut, checkRole, checkUser } = require('../middlewares/route-guard')
+const { isLoggedIn, checkRole, checkUser } = require('../middlewares/route-guard')
+
+const { getUserRoles } = require('./../utils/userRoles')
 
 
-router.get("/list", (req, res, next) => {
 
+router.get("/list", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER', 'ADMIN'), (req, res, next) => {
+    console.log(req.session.currentUser)                                                                //Aqui hay un console.log
     User
         .find()
         .select({ username: 1 })
         .sort({ username: 1 })
-        .then((users => res.render('users/list', { users })))
+        .then((users => res.render('users/list', {
+            users,
+            userRoles: getUserRoles(req.session.currentUser)
+        })))
         .catch(err => next(err))
 })
 
 
-router.get("/details/:user_id", (req, res, next) => {
+router.get("/details/:user_id", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER', 'ADMIN'), (req, res, next) => {
 
     const { user_id } = req.params
 
@@ -27,17 +33,23 @@ router.get("/details/:user_id", (req, res, next) => {
 })
 
 
-router.get("/edit/:user_id", (req, res, next) => {
-
+router.get("/edit/:user_id", isLoggedIn, checkUser, (req, res, next) => {
+    console.log(req.session.currentUser)                                                            //Aqui hay un console.log
     const { user_id } = req.params
 
     User
         .findById(user_id)
-        .then(user => { res.render('users/edit', user) })
+        .then(user => {
+            res.render('users/edit', {
+                user,
+                userRoles: getUserRoles(req.session.currentUser),
+                userOwner: getOwner(req.session.currentUser)
+            })
+        })
         .catch(err => next(err))
 })
 
-router.post('/edit/:user_id', (req, res, next) => {
+router.post('/edit/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 
     const { username, email, avatar } = req.body
     const { user_id } = req.params
@@ -49,7 +61,7 @@ router.post('/edit/:user_id', (req, res, next) => {
 })
 
 
-router.post('/delete/:user_id', (req, res, next) => {
+router.post('/delete/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 
     const { user_id } = req.params
 
