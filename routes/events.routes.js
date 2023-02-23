@@ -78,7 +78,6 @@ router.get("/details/:event_id", (req, res, next) => {
         .populate('departments')
         .populate('participants')
         .then(event => {
-            console.log(event)
             res.render('events/details', {
                 event,
                 userRoles: getUserRoles(req.session.currentUser),

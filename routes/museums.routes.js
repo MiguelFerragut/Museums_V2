@@ -56,20 +56,22 @@ router.post("/filter", (req, res, next) => {
             const piecesInfo = values.map(({ title, primaryImage, department, artistDisplayName, objectID }) => {
                 return ({ title, primaryImage, department, artistDisplayName, objectID })
             }).slice(0, 30)
-            console.log(piecesInfo)
             res.render('museums/pieces', { values: piecesInfo })
         })
         .catch(err => next(err))
 })
 
-//RUTA A DETALLES DE LA PIEZA
+
 router.get("/filter/:piece_id", (req, res, next) => {
 
     const { piece_id } = req.params
+    const promises = [api.getSinglePiece(piece_id)]
 
-    api
-        .getSinglePiece(piece_id)
-        .then((piece) => res.render('museums/piece_details', piece))
+    Promise
+        .all(promises)
+        .then(piece => {
+            res.render('museums/piece_details', ...piece)
+        })
         .catch(err => next(err))
 
 })
