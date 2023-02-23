@@ -8,10 +8,14 @@
 </div>
 
 <div class="container mb-5">
-    <div class="row justify-content-center">
-        <div class="card" style="width: 28rem;">
 
-            <img src="{{user.avatar}}" class="card-img-top mt-2" alt="{{user.username}}">
+    <div class="row justify-content-center">
+
+        <div class="col-6">
+            <img src="{{user.avatar}}" class="profile-img mt-2" alt="{{user.username}}">
+        </div>
+
+        <div class="col-6">
             <div class="card-body">
                 <h5 class="card-title"><b>Name: </b>{{user.username}}</h5>
             </div>
@@ -22,16 +26,16 @@
 
             {{#if userOwner}}
             <div class="card-body d-flex justify-content-between">
-                <a href="/users/edit/{{_id}}" class="btn btn-dark btn-lg">Edit</a>
-                <form action="/users/delete/{{_id}}" method="POST">
-                    <input type="submit" value="Delete" class="btn btn-danger btn-lg">
+                <a href="/users/edit/{{user._id}}" class="btn btn-dark btn-lg">Edit</a>
+                <form action="/users/delete/{{user._id}}" method="POST">
+                    <input type="submit" value="Delete" class="btn btn-dark btn-lg">
                 </form>
             </div>
             {{/if}}
 
             {{#if userRoles.isAdmin}}
             <div class="card-body d-flex justify-content-between">
-                <a href="/users/edit/{{_id}}" class="btn btn-dark btn-lg">Edit</a>
+                <a href="/users/edit/{{user._id}}" class="btn btn-dark btn-lg">Edit</a>
 
                 <form action="/users/details/{{user._id}}/USER" method="POST">
                     <input type="submit" value="USER" class="btn btn-light btn-sm">
@@ -46,12 +50,11 @@
                 </form>
 
 
-                <form action="/users/delete/{{_id}}" method="POST">
+                <form action="/users/delete/{{user._id}}" method="POST">
                     <input type="submit" value="Delete" class="btn btn-danger btn-lg">
                 </form>
             </div>
             {{/if}}
-
         </div>
     </div>
 </div>
@@ -66,8 +69,8 @@
     <div class="row d-flex justify-content-center">
 
         {{#each events}}
-        <div class="col-3">
-            <div class="card" style="width: 28rem;">
+        <div class="col-4">
+            <div class="card" style="width: 20rem;">
                 <img src="{{cover}}" class="card-img-top mt-2" alt="{{title}}">
                 <div class="card-body">
                     <h5 class="card-title"><b>Title: </b>{{title}}</h5>
@@ -89,13 +92,17 @@
                 </ul>
 
                 {{#if ../userOwner}}
-                <div class="card-body d-flex justify-content-between">
-                    <form action="/events/joinEvent/{{event._id}}" method="POST">
-                        <input type="submit" value="Join Event" class="btn btn-danger btn-sm">
-                    </form>
-                    <form action="/events/exitEvent/{{objectID}}" method="POST">
-                        <input type="submit" value="Leave Event" class="btn btn-danger btn-sm">
-                    </form>
+                <div class="row d-flex justify-content-between m-2">
+                    <div class="col">
+                        <form action="/events/joinEvent/{{event._id}}" method="POST">
+                            <input type="submit" value="Join Event" class="btn btn-dark btn-sm">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form action="/events/exitEvent/{{objectID}}" method="POST">
+                            <input type="submit" value="Leave Event" class="btn btn-dark btn-sm">
+                        </form>
+                    </div>
                 </div>
                 {{/if}}
             </div>
@@ -114,27 +121,36 @@
 
         {{#each favs}}
 
-        <div class="col-3">
-            <img src="{{primaryImage}}" class="card-img-top" alt="{{title}}">
+        <div class="col-4">
+            <div class="card" style="width: 20rem;">
 
-            <p class="list-group-item"><b>Department: </b>{{department}}</p>
-            <p class="list-group-item"><b>Artist: </b>{{artistDisplayName}}</p>
-            <p class="list-group-item"><b>Description: </b>{{description}}</p>
-            <p class="list-group-item"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
-            <p class="list-group-item"><b>Country: </b>{{country}}</p>
+                <img src="{{primaryImage}}" class="card-img-top" alt="{{title}}">
 
-            <hr>
+                <p class="list-group-item"><b>Department: </b>{{department}}</p>
+                <p class="list-group-item"><b>Artist: </b>{{artistDisplayName}}</p>
+                <p class="list-group-item"><b>Description: </b>{{description}}</p>
+                <p class="list-group-item"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
+                <p class="list-group-item"><b>Country: </b>{{country}}</p>
 
-            {{#if ../userOwner}}
-            <form action="/users/addToFav/{{objectID}}" method="POST">
-                <input type="submit" value="Add to Fav" class="btn btn-danger btn-sm">
-            </form>
-            <form action="/users/removeFromFav/{{objectID}}" method="POST">
-                <input type="submit" value="Remove Fav" class="btn btn-danger btn-sm">
-            </form>
+                <hr>
 
-            <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
-            {{/if}}
+                {{#if ../userOwner}}
+                <div class="row d-flex justify-content-between mb-2">
+                    <div class="col">
+                        <form action="/users/addToFav/{{objectID}}" method="POST">
+                            <input type="submit" value="Add to Fav" class="btn btn-dark btn-sm">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form action="/users/removeFromFav/{{objectID}}" method="POST">
+                            <input type="submit" value="Remove Fav" class="btn btn-dark btn-sm">
+                        </form>
+                    </div>
+                </div>
+
+                <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
+                {{/if}}
+            </div>
         </div>
 
         {{/each}}

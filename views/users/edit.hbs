@@ -29,9 +29,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="avatar" class="form-label">Image</label>
-                    <input type="avatar" class="form-control" id="avatar" name="avatar" value="{{user.avatar}}">
-                    <div class="form-text">Insert an image.</div>
+
+                    <div class="d-grid gap-2 mb-3">
+                        <label for="avatar" class="form-label">Imagen</label>
+                        <input type="file" class="form-control" id="avatar" name="avatar">
+                        <div class="form-text">Insert an image.</div>
+                    </div>
                 </div>
 
                 <input type="hidden" name="_id" value="{{user._id}}">

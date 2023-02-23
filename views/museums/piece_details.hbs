@@ -18,15 +18,16 @@
     <p class="list-group-item"><b>Country: </b>{{country}}</p>
 
     <hr>
-
-    <form action="/users/addToFav/{{objectID}}" method="POST">
-        <input type="submit" value="Add to Fav" class="btn btn-danger btn-sm">
-    </form>
-    <form action="/users/removeFromFav/{{objectID}}" method="POST">
-        <input type="submit" value="Remove Fav" class="btn btn-danger btn-sm">
-    </form>
+    <div class="col">
+        <form action="/users/addToFav/{{objectID}}" method="POST">
+            <input type="submit" value="Add to Fav" class="btn btn-dark btn-sm">
+        </form>
+    </div>
+    <div class="col">
+        <form action="/users/removeFromFav/{{objectID}}" method="POST">
+            <input type="submit" value="Remove Fav" class="btn btn-dark btn-sm">
+        </form>
+    </div>
 
     <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
-
-
 </div>

@@ -14,8 +14,12 @@ a {
   color: #00b7ff;
 }
 
-npm h1 {
+h1 {
   color: 15px;
+}
+
+.profile-img {
+  width: 300px;
 }
 
 .card-img-top {
