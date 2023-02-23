@@ -75,11 +75,10 @@ router.get("/details/:event_id", (req, res, next) => {
 
     Event
         .findById(event_id)
-        .populate('guideName')                                         //¿De verdad necesito esto?
+        .populate('guideName')
         .populate('departments')
         .populate('participants')
         .then(event => {
-            console.log(event)
             res.render('events/details', {
                 event,
                 userRoles: getUserRoles(req.session.currentUser),
