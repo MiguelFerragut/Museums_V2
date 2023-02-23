@@ -26,9 +26,9 @@ router.post('/signup', isLoggedOut, uploaderMiddleware.single('avatar'), (req, r
 })
 
 
-router.get('/login', (req, res, next) => res.render('auth/login'))
+router.get('/login', isLoggedOut, (req, res, next) => res.render('auth/login'))
 
-router.post('/login', (req, res, next) => {
+router.post('/login', isLoggedOut, (req, res, next) => {
 
     const { email, password } = req.body
 

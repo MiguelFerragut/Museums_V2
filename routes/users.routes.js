@@ -1,10 +1,14 @@
 const router = require("express").Router()
 
 const User = require("../models/User.model")
+const Event = require('../models/Event.model')
 
 const { isLoggedIn, checkRole, checkUser } = require('../middlewares/route-guard')
 
 const { getUserRoles, getIsOwner } = require('./../utils/userRoles')
+
+const metApi = require('../services/met.service')
+const api = new metApi()
 
 
 
@@ -28,11 +32,29 @@ router.get("/details/:user_id", isLoggedIn, (req, res, next) => {
 
     User
         .findById(user_id)
-        .then(user => res.render('users/details', {
-            user,
-            userRoles: getUserRoles(req.session.currentUser),
-            userOwner: getIsOwner(req.session.currentUser, user_id)
-        }))
+        .then(user => {
+
+            const promises = user.fav?.map(elm => api.getSinglePiece(elm))
+
+            Promise
+                .all(promises)
+                .then((favs) => {
+
+                    Event
+                        .find({ participants: user_id })
+                        .then(events => {
+                            res.render('users/details', {
+                                user,
+                                userRoles: getUserRoles(req.session.currentUser),
+                                userOwner: getIsOwner(req.session.currentUser, user_id),
+                                favs,
+                                events
+                            })
+
+                        })
+                })
+                .catch(err => next(err))
+        })
         .catch(err => next(err))
 })
 
@@ -82,6 +104,28 @@ router.post('/details/:user_id/:role', isLoggedIn, checkRole('MANAGER', 'ADMIN')
 
     User
         .findByIdAndUpdate(user_id, { role })
+        .then(() => res.redirect('/users/list'))
+        .catch(err => next(err))
+})
+
+router.post('/addToFav/:piece_id', isLoggedIn, checkUser, (req, res, next) => {
+
+    const { piece_id } = req.params
+    const user_id = req.session.currentUser._id
+
+    User
+        .findByIdAndUpdate(user_id, { $addToSet: { fav: piece_id } })
+        .then(() => res.redirect('/users/list'))
+        .catch(err => next(err))
+})
+
+router.post('/removeFromFav/:piece_id', isLoggedIn, checkUser, (req, res, next) => {
+
+    const { piece_id } = req.params
+    const user_id = req.session.currentUser._id
+
+    User
+        .findByIdAndUpdate(user_id, { $pull: { fav: piece_id } })
         .then(() => res.redirect('/users/list'))
         .catch(err => next(err))
 })
