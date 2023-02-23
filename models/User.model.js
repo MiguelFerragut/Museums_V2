@@ -26,7 +26,8 @@ const userSchema = new Schema(
       type: String,
       enum: ['USER', 'GUIDE', 'MANAGER', 'ADMIN'],
       default: 'USER'
-    }
+    },
+    fav: [String]
     //Should the favorites be in the user model?
   },
   {

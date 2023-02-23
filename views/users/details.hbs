@@ -1,13 +1,13 @@
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-8">
-            <h1>User Details</h1>
+            <h1>{{user.username}} Profile</h1>
             <hr>
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container mb-5">
     <div class="row justify-content-center">
         <div class="card" style="width: 28rem;">
 
@@ -51,6 +51,98 @@
                 </form>
             </div>
             {{/if}}
+
+        </div>
+    </div>
+</div>
+
+<h3>My Events</h3>
+<hr>
+
+<div class="container mt-3 mb-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            {{#each events}}
+            <div class="card" style="width: 28rem;">
+                <img src="{{event.cover}}" class="card-img-top mt-2" alt="{{event.title}}">
+                <div class="card-body">
+                    <h5 class="card-title"><b>Title: </b>{{event.title}}</h5>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Guide: </b>{{event.guideName.username}}</li>
+                    <li class="list-group-item"> <b>Language:</b> {{event.language}}</li>
+                    <li class="list-group-item"><b>Department: </b>{{event.departments.[0].name}}</li>
+                    <li class="list-group-item"><b>Description: </b>{{event.description}}</li>
+                    <li class="list-group-item"><b>Date: </b>{{event.date}}</li>
+                    <li class="list-group-item"><b>Duration: </b>{{event.duration}} minutes</li>
+
+                    <li class="list-group-item">
+                        <div class="mb-2 row mt-2">
+                            <div class="col">
+                                <label for="longitude" class="form-label">Longitude:</label>
+                                <input type="text" class="form-control" id="eventLongitud" name="longitude"
+                                    value="{{event.location.coordinates.[0]}}">
+                            </div>
+                            <div class="col">
+                                <label for="latitude" class="form-label mb-2">Latitude:</label>
+                                <input type="text" class="form-control" id="eventLatitude" name="latitude"
+                                    value="{{event.location.coordinates.[1]}}">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item"><b>Participants: </b> {{#each
+                        event.participants}}<span>{{username}} |</span>{{/each}}</li>
+                </ul>
+
+                {{#if ../userOwner}}
+                <div class="card-body d-flex justify-content-between">
+                    <form action="/events/joinEvent/{{event._id}}" method="POST">
+                        <input type="submit" value="Join Event" class="btn btn-danger btn-sm">
+                    </form>
+                    <form action="/events/exitEvent/{{objectID}}" method="POST">
+                        <input type="submit" value="Leave Event" class="btn btn-danger btn-sm">
+                    </form>
+                </div>
+                {{/if}}
+
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<h3>My Favourites</h3>
+<hr>
+
+<div class="container mt-3 mb-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            {{#each favs}}
+
+            <img src="{{piece.primaryImage}}" class="card-img-top" alt="{{piece.title}}">
+
+            <p class="list-group-item"><b>Department: </b>{{piece.department}}</p>
+            <p class="list-group-item"><b>Artist: </b>{{piece.artistDisplayName}}</p>
+            <p class="list-group-item"><b>Description: </b>{{piece.description}}</p>
+            <p class="list-group-item"><b>Date: </b>{{piece.objectBeginDate}} - {{piece.objectEndDate}}</p>
+            <p class="list-group-item"><b>Country: </b>{{piece.country}}</p>
+
+            <hr>
+
+            {{#if ../userOwner}}
+            <form action="/users/addToFav/{{objectID}}" method="POST">
+                <input type="submit" value="Add to Fav" class="btn btn-danger btn-sm">
+            </form>
+            <form action="/users/removeFromFav/{{objectID}}" method="POST">
+                <input type="submit" value="Remove to Fav" class="btn btn-danger btn-sm">
+            </form>
+
+            <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
+            {{/if}}
+
+            {{/each}}
         </div>
     </div>
 </div>

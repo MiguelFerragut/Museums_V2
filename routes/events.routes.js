@@ -6,7 +6,7 @@ const User = require("../models/User.model")
 const Department = require('../models/Department.model')
 
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
-const { isLoggedIn, checkRole } = require('../middlewares/route-guard')
+const { isLoggedIn, checkRole, checkUser } = require('../middlewares/route-guard')
 const { getUserRoles } = require('./../utils/userRoles')
 
 
@@ -75,12 +75,16 @@ router.get("/details/:event_id", (req, res, next) => {
 
     Event
         .findById(event_id)
-        .populate('guideName')
+        .populate('guideName')                                         //¿De verdad necesito esto?
         .populate('departments')
-        .then(event => res.render('events/details', {
-            event,
-            userRoles: getUserRoles(req.session.currentUser)
-        }))
+        .populate('participants')
+        .then(event => {
+            console.log(event)
+            res.render('events/details', {
+                event,
+                userRoles: getUserRoles(req.session.currentUser),
+            })
+        })
         .catch(err => next(err))
 })
 
@@ -122,6 +126,29 @@ router.post('/delete/:event_id', isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, 
 
     Event
         .findByIdAndDelete(event_id)
+        .then(() => res.redirect('/events/list'))
+        .catch(err => next(err))
+})
+
+
+router.post('/joinEvent/:event_id', isLoggedIn, checkUser, (req, res, next) => {
+
+    const { event_id } = req.params
+    const user_id = req.session.currentUser._id
+
+    Event
+        .findByIdAndUpdate(event_id, { $addToSet: { participants: user_id } })
+        .then(() => res.redirect('/events/list'))
+        .catch(err => next(err))
+})
+
+router.post('/exitEvent/:event_id', isLoggedIn, checkUser, (req, res, next) => {
+
+    const { event_id } = req.params
+    const user_id = req.session.currentUser._id
+
+    Event
+        .findByIdAndUpdate(event_id, { $pull: { participants: user_id } })
         .then(() => res.redirect('/events/list'))
         .catch(err => next(err))
 })

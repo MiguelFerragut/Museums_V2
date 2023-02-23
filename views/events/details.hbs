@@ -37,6 +37,16 @@
                         </div>
                     </div>
                 </li>
+
+                <li class="list-group-item"><b>Participants: </b> {{#each
+                    event.participants}}<span>{{username}} |</span>{{/each}}</li>
+
+                <form action="/events/joinEvent/{{event._id}}" method="POST">
+                    <input type="submit" value="Join Event" class="btn btn-danger btn-sm">
+                </form>
+                <form action="/events/exitEvent/{{objectID}}" method="POST">
+                    <input type="submit" value="Leave Event" class="btn btn-danger btn-sm">
+                </form>
             </ul>
 
             {{#if userRoles.isGuide}}

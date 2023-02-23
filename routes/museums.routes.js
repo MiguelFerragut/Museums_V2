@@ -107,14 +107,16 @@ router.post("/filter", (req, res, next) => {
 })
 
 //RUTA A DETALLES DE LA PIEZA
-// router.get("/filter/:piece_id", (req, res, next) => {
+router.get("/filter/:piece_id", (req, res, next) => {
 
-//     const { piece_id } = req.params
+    const { piece_id } = req.params
 
-//     api.getSinglePiece(piece_id)
-//         .then(console.log(value))
+    api
+        .getSinglePiece(piece_id)
+        .then((piece) => res.render('museums/piece_details', piece))
+        .catch(err => next(err))
 
-// })
+})
 
 
 router.get("/details/:museum_id", (req, res, next) => {
