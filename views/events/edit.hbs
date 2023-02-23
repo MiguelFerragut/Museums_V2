@@ -19,26 +19,27 @@
                     <div class="col">
                         <label for="longitude" class="form-label">Location Longitude</label>
                         <input type="text" class="form-control" id="museumLongitud" name="longitude"
-                            value="{{location.coordinates.[0]}}">
+                            value="{{event.location.coordinates.[0]}}">
                         <div class="form-text">Reqired.</div>
                     </div>
                     <div class="col">
                         <label for="latitude" class="form-label">Location Latitude</label>
                         <input type="text" class="form-control" id="museumLatitude" name="latitude"
-                            value="{{location.coordinates.[1]}}">
+                            value="{{event.location.coordinates.[1]}}">
                         <div class="form-text">Required.</div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="title" class="form-label">Title:</label>
-                    <input type="text" class="form-control" id="eventTitle" name="title" value="{{title}}">
+                    <input type="text" class="form-control" id="eventTitle" name="title" value="{{event.title}}">
                 </div>
                 <div class="row">
                     <div class="col-8">
                         <div class="mb-3">
                             <label for="guide" class="form-label">Guide:</label>
-                            <input type="text" class="form-control" id="guide" name="guideName" value="{{guideName}}">
+                            <input type="text" class="form-control" id="guide" name="guideName"
+                                value="{{event.guideName}}">
                         </div>
                     </div>
                     <div class="col-4">
@@ -56,24 +57,26 @@
 
                 <div class="mb-3">
                     <label for="department" class="form-label">Department:</label>
-                    <input type="text" class="form-control" id="department" name="department" value="{{department}}">
+                    <input type="text" class="form-control" id="department" name="department"
+                        value="{{event.department}}">
                 </div>
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="eventDescription" rows="3" name="description"
-                        value="{{description}}"></textarea>
+                        value="{{event.description}}"></textarea>
                 </div>
 
                 <div class="mb-3 row">
                     <div class="col">
                         <label for="date" class="form-label">Date:</label>
-                        <input type="text" class="form-control" id="date" name="date" value="{{date}}">
+                        <input type="text" class="form-control" id="date" name="date" value="{{event.date}}">
                         <div class="form-text">Reqired.</div>
                     </div>
                     <div class="col">
                         <label for="duration" class="form-label">Duration:(hours)</label>
-                        <input type="text" class="form-control" id="duration" name="duration" value="{{duration}}">
+                        <input type="text" class="form-control" id="duration" name="duration"
+                            value="{{event.duration}}">
                         <div class="form-text">Required.</div>
                     </div>
                 </div>

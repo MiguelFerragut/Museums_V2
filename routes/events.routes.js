@@ -7,6 +7,7 @@ const Department = require('../models/Department.model')
 
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 const { isLoggedIn, checkRole } = require('../middlewares/route-guard')
+const { getUserRoles } = require('./../utils/userRoles')
 
 
 router.get('/create', isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, res, next) => {
@@ -48,7 +49,10 @@ router.get("/list", (req, res, next) => {
         .select({ title: 1, departments: 1 })
         .populate('departments')
         .sort({ title: 1 })
-        .then((events => res.render('events/list', { events })))
+        .then((events => res.render('events/list', {
+            events,
+            userRoles: getUserRoles(req.session.currentUser)
+        })))
         .catch(err => next(err))
 })
 
@@ -73,7 +77,10 @@ router.get("/details/:event_id", (req, res, next) => {
         .findById(event_id)
         .populate('guideName')
         .populate('departments')
-        .then(event => res.render('events/details', event))
+        .then(event => res.render('events/details', {
+            event,
+            userRoles: getUserRoles(req.session.currentUser)
+        }))
         .catch(err => next(err))
 })
 
