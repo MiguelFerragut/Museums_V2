@@ -53,6 +53,10 @@ h1 {
   width: 300px;
 }
 
+.piece-img {
+  width: 500px;
+}
+
 .card-img-top {
   background-size: cover;
 }

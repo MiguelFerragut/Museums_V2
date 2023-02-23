@@ -8,26 +8,31 @@
 </div>
 
 <div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <img src="{{primaryImage}}" class="card-img-top piece-img" alt="{{title}}">
 
-    <img src="{{primaryImage}}" class="card-img-top" alt="{{title}}">
+        </div>
+        <div class="col">
+            <p class="list-group-item"><b>Department: </b>{{department}}</p>
+            <p class="list-group-item"><b>Artist: </b>{{artistDisplayName}}</p>
+            <p class="list-group-item"><b>Description: </b>{{description}}</p>
+            <p class="list-group-item"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
+            <p class="list-group-item"><b>Country: </b>{{country}}</p>
 
-    <p class="list-group-item"><b>Department: </b>{{department}}</p>
-    <p class="list-group-item"><b>Artist: </b>{{artistDisplayName}}</p>
-    <p class="list-group-item"><b>Description: </b>{{description}}</p>
-    <p class="list-group-item"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
-    <p class="list-group-item"><b>Country: </b>{{country}}</p>
+            <hr>
+            <div class="row">
+                <div class="col-2">
+                    <form action="/users/addToFav/{{objectID}}" method="POST" class="m-2">
+                        <input type="submit" value="Add to Fav" class="btn btn-dark btn-sm">
+                    </form>
 
-    <hr>
-    <div class="col">
-        <form action="/users/addToFav/{{objectID}}" method="POST">
-            <input type="submit" value="Add to Fav" class="btn btn-dark btn-sm">
-        </form>
+                </div>
+                <a href="{{objectURL}}" target="_blank" class="btn btn-dark m-2 mb-4">See more</a>
+            </div>
+
+        </div>
     </div>
-    <div class="col">
-        <form action="/users/removeFromFav/{{objectID}}" method="POST">
-            <input type="submit" value="Remove Fav" class="btn btn-dark btn-sm">
-        </form>
-    </div>
 
-    <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
+
 </div>

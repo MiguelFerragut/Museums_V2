@@ -1,9 +1,9 @@
 <div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-8">
-            <h1>{{user.username}} Profile</h1>
-            <hr>
-        </div>
+
+        <h1>{{user.username}}</h1>
+        <hr>
+
     </div>
 </div>
 
@@ -26,16 +26,16 @@
 
             {{#if userOwner}}
             <div class="card-body d-flex justify-content-between">
-                <a href="/users/edit/{{user._id}}" class="btn btn-dark btn-lg">Edit</a>
+                <a href="/users/edit/{{user._id}}" class="btn btn-dark mb-3">Edit</a>
                 <form action="/users/delete/{{user._id}}" method="POST">
-                    <input type="submit" value="Delete" class="btn btn-dark btn-lg">
+                    <input type="submit" value="Delete" class="btn btn-dark mb-3">
                 </form>
             </div>
             {{/if}}
 
             {{#if userRoles.isAdmin}}
             <div class="card-body d-flex justify-content-between">
-                <a href="/users/edit/{{user._id}}" class="btn btn-dark btn-lg">Edit</a>
+                {{!-- <a href="/users/edit/{{user._id}}" class="btn btn-dark btn-lg">Edit</a> --}}
 
                 <form action="/users/details/{{user._id}}/USER" method="POST">
                     <input type="submit" value="USER" class="btn btn-light btn-sm">
@@ -50,9 +50,9 @@
                 </form>
 
 
-                <form action="/users/delete/{{user._id}}" method="POST">
+                {{!-- <form action="/users/delete/{{user._id}}" method="POST">
                     <input type="submit" value="Delete" class="btn btn-danger btn-lg">
-                </form>
+                </form> --}}
             </div>
             {{/if}}
         </div>
@@ -76,28 +76,18 @@
                     <h5 class="card-title"><b>Title: </b>{{title}}</h5>
                 </div>
 
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Guide: </b>{{guideName.username}}</li>
-                    <li class="list-group-item"> <b>Language:</b> {{language}}</li>
-                    <li class="list-group-item"><b>Department: </b>{{departments.[0].name}}</li>
-                    <li class="list-group-item"><b>Description: </b>{{description}}</li>
-                    <li class="list-group-item"><b>Date: </b>{{date}}</li>
-                    <li class="list-group-item"><b>Duration: </b>{{duration}} minutes</li>
 
-                    <li class="list-group-item"><b>Participants: </b>
-                        {{#each participants}}
-                        <span>{{username}} |</span>
-                        {{/each}}
-                    </li>
-                </ul>
+                <p class="list-group-item m-2"><b>Guide: </b>{{guideName.username}}</p>
+                <p class="list-group-item m-2"> <b>Language:</b> {{language}}</p>
+                <p class="list-group-item m-2"><b>Department: </b>{{departments.[0].name}}</p>
+                <p class="list-group-item m-2"><b>Description: </b>{{description}}</p>
+                <p class="list-group-item m-2"><b>Date: </b>{{date.day}}</p>
+                <p class="list-group-item m-2"><b>Duration: </b>{{date.duration}} minutes</p>
+
+                <hr>
 
                 {{#if ../userOwner}}
                 <div class="row d-flex justify-content-between m-2">
-                    <div class="col">
-                        <form action="/events/joinEvent/{{event._id}}" method="POST">
-                            <input type="submit" value="Join Event" class="btn btn-dark btn-sm">
-                        </form>
-                    </div>
                     <div class="col">
                         <form action="/events/exitEvent/{{objectID}}" method="POST">
                             <input type="submit" value="Leave Event" class="btn btn-dark btn-sm">
@@ -126,29 +116,24 @@
 
                 <img src="{{primaryImage}}" class="card-img-top" alt="{{title}}">
 
-                <p class="list-group-item"><b>Department: </b>{{department}}</p>
-                <p class="list-group-item"><b>Artist: </b>{{artistDisplayName}}</p>
-                <p class="list-group-item"><b>Description: </b>{{description}}</p>
-                <p class="list-group-item"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
-                <p class="list-group-item"><b>Country: </b>{{country}}</p>
+                <p class="list-group-item m-2"><b>Department: </b>{{department}}</p>
+                <p class="list-group-item m-2"><b>Artist: </b>{{artistDisplayName}}</p>
+                <p class="list-group-item m-2"><b>Description: </b>{{description}}</p>
+                <p class="list-group-item m-2"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
+                <p class="list-group-item m-2"><b>Country: </b>{{country}}</p>
 
                 <hr>
 
                 {{#if ../userOwner}}
                 <div class="row d-flex justify-content-between mb-2">
                     <div class="col">
-                        <form action="/users/addToFav/{{objectID}}" method="POST">
-                            <input type="submit" value="Add to Fav" class="btn btn-dark btn-sm">
-                        </form>
-                    </div>
-                    <div class="col">
-                        <form action="/users/removeFromFav/{{objectID}}" method="POST">
+                        <form action="/users/removeFromFav/{{objectID}}" method="POST" class="m-2">
                             <input type="submit" value="Remove Fav" class="btn btn-dark btn-sm">
                         </form>
                     </div>
                 </div>
 
-                <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
+                <a href="{{objectURL}}" target="_blank" class="btn btn-dark m-1">See more</a>
                 {{/if}}
             </div>
         </div>

@@ -16,7 +16,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      set: string => string === '' ? 'https://img1.freepng.es/20180613/ku/kisspng-vitruvian-man-vinci-computer-icons-clip-art-vitruvian-man-5b215c79311a22.8760125415289130172011.jpg' : string
+      set: string => string === undefined ? 'https://i.pinimg.com/474x/5d/cf/02/5dcf02265a260bb0902c1ec504d1743b.jpg' : string
     },
     password: {
       type: String,

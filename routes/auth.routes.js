@@ -15,7 +15,7 @@ router.get('/signup', isLoggedOut, (req, res, next) => res.render('auth/signup')
 router.post('/signup', isLoggedOut, uploaderMiddleware.single('avatar'), (req, res, next) => {
 
     const { password, username, email } = req.body
-    const { path: avatar } = req.file
+    const avatar = req.file?.path
 
     bcrypt
         .genSalt(saltRounds)

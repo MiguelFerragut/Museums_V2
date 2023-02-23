@@ -87,7 +87,7 @@ router.post('/edit/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 })
 
 
-router.post('/delete/:user_id', isLoggedIn, checkUser, (req, res, next) => {            //si solo meto el role de ADMIN no basta con checkUser
+router.post('/delete/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 
     const { user_id } = req.params
 
@@ -115,7 +115,7 @@ router.post('/addToFav/:piece_id', isLoggedIn, (req, res, next) => {
 
     User
         .findByIdAndUpdate(user_id, { $addToSet: { fav: piece_id } })
-        .then(() => res.redirect('/users/list'))
+        .then(() => res.redirect(`/museums/filter/${piece_id}`))
         .catch(err => next(err))
 })
 

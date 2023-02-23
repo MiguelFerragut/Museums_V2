@@ -35,20 +35,20 @@ router.post("/filter", (req, res, next) => {
     const { departments, query, isHighLight, isOnView, country } = req.body
     const promises = [
         api.getDeptsAndHighlights(departments, query, isHighLight),
-        api.getFilteredItems('isOnView', isOnView, country)
+        // api.getFilteredItems('isOnView', isOnView, country)
     ]
 
     return Promise.all(promises)
-        .then(([originalItems, secondItems]) => {
+        .then(([originalItems, /*secondItems*/]) => {
 
             const departmentIDs = originalItems[0].data.objectIDs
             const isHighligthIDs = originalItems[1].data.objectIDs
-            const onViewIDs = secondItems.data.objectIDs
+            // const onViewIDs = secondItems.data.objectIDs
 
             let filtredItems = filterByDept(departmentIDs, isHighligthIDs)
-            let resultIDs = filterAll(filtredItems, onViewIDs)
+            // let resultIDs = filterAll(filtredItems, onViewIDs)
 
-            const promises = resultIDs.map(id => api.getSinglePiece(id))
+            const promises = filtredItems.map(id => api.getSinglePiece(id))
 
             return Promise.all(promises)
         })
