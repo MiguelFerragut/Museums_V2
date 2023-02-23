@@ -23,21 +23,6 @@
                 <li class="list-group-item"><b>Date: </b>{{event.date}}</li>
                 <li class="list-group-item"><b>Duration: </b>{{event.duration}} minutes</li>
 
-                <li class="list-group-item">
-                    <div class="mb-2 row mt-2">
-                        <div class="col">
-                            <label for="longitude" class="form-label">Longitude:</label>
-                            <input type="text" class="form-control" id="eventLongitud" name="longitude"
-                                value="{{event.location.coordinates.[0]}}">
-                        </div>
-                        <div class="col">
-                            <label for="latitude" class="form-label mb-2">Latitude:</label>
-                            <input type="text" class="form-control" id="eventLatitude" name="latitude"
-                                value="{{event.location.coordinates.[1]}}">
-                        </div>
-                    </div>
-                </li>
-
                 <li class="list-group-item"><b>Participants: </b> {{#each
                     event.participants}}<span>{{username}} |</span>{{/each}}</li>
 
@@ -46,12 +31,12 @@
                     <div class="col-3">
 
                         <form action="/events/joinEvent/{{event._id}}" method="POST" class="mt-3">
-                            <input type="submit" value="Join Event" class="btn btn-danger btn-sm">
+                            <input type="submit" value="Join Event" class="btn btn-dark btn-sm">
                         </form>
                     </div>
                     <div class="col-3">
-                        <form action="/events/exitEvent/{{objectID}}" method="POST" class="mt-3 mb-3">
-                            <input type="submit" value="Leave Event" class="btn btn-danger btn-sm">
+                        <form action="/events/exitEvent/{{event._id}}" method="POST" class="mt-3 mb-3">
+                            <input type="submit" value="Leave Event" class="btn btn-dark btn-sm">
                         </form>
 
                     </div>
@@ -71,8 +56,8 @@
 
             {{#if userRoles.isAdmin}}
             <div class="card-body d-flex justify-content-between">
-                <a href="/events/edit/{{user._id}}" class="btn btn-dark btn-lg">Edit</a>
-                <form action="/events/delete/{{user._id}}" method="POST">
+                <a href="/events/edit/{{event._id}}" class="btn btn-dark btn-lg">Edit</a>
+                <form action="/events/delete/{{event._id}}" method="POST">
                     <input type="submit" value="Delete" class="btn btn-danger btn-lg">
                 </form>
             </div>
