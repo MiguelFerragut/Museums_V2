@@ -4,11 +4,11 @@ const User = require("../models/User.model")
 
 const { isLoggedIn, checkRole, checkUser } = require('../middlewares/route-guard')
 
-const { getUserRoles } = require('./../utils/userRoles')
+const { getUserRoles, getIsOwner } = require('./../utils/userRoles')
 
 
 
-router.get("/list", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER', 'ADMIN'), (req, res, next) => {
+router.get("/list", isLoggedIn, (req, res, next) => {
     console.log(req.session.currentUser)                                                                //Aqui hay un console.log
     User
         .find()
@@ -16,14 +16,13 @@ router.get("/list", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER', 'ADMIN'), 
         .sort({ username: 1 })
         .then((users => res.render('users/list', {
             users,
-            userRoles: getUserRoles(req.session.currentUser),
-            // userOwner: getOwner(req.session.currentUser)
+            userRoles: getUserRoles(req.session.currentUser)
         })))
         .catch(err => next(err))
 })
 
 
-router.get("/details/:user_id", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER', 'ADMIN'), (req, res, next) => {
+router.get("/details/:user_id", isLoggedIn, (req, res, next) => {
 
     const { user_id } = req.params
 
@@ -31,7 +30,8 @@ router.get("/details/:user_id", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER'
         .findById(user_id)
         .then(user => res.render('users/details', {
             user,
-            userRoles: getUserRoles(req.session.currentUser)
+            userRoles: getUserRoles(req.session.currentUser),
+            userOwner: getIsOwner(req.session.currentUser, user_id)
         }))
         .catch(err => next(err))
 })
@@ -47,7 +47,7 @@ router.get("/edit/:user_id", isLoggedIn, checkUser, (req, res, next) => {
             res.render('users/edit', {
                 user,
                 userRoles: getUserRoles(req.session.currentUser),
-                // userOwner: getOwner(req.session.currentUser)
+                userOwner: getIsOwner(req.session.currentUser, user_id)
             })
         })
         .catch(err => next(err))
@@ -60,7 +60,7 @@ router.post('/edit/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 
     User
         .findByIdAndUpdate(user_id, { username, email, avatar })
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/users/list'))
         .catch(err => next(err))
 })
 
@@ -71,7 +71,18 @@ router.post('/delete/:user_id', isLoggedIn, checkUser, (req, res, next) => {    
 
     User
         .findByIdAndDelete(user_id)
-        .then(() => res.redirect('/list'))
+        .then(() => res.redirect('/users/list'))
+        .catch(err => next(err))
+})
+
+
+router.post('/details/:user_id/:role', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
+
+    const { role, user_id } = req.params
+
+    User
+        .findByIdAndUpdate(user_id, { role })
+        .then(() => res.redirect('/users/list'))
         .catch(err => next(err))
 })
 

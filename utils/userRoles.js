@@ -11,18 +11,12 @@ const getUserRoles = user => {
     return userRoles
 }
 
-// const getOwner = user => {
+const getIsOwner = (user, user_id) => {
 
-//     const userOwner = {
+    return user?._id === user_id
 
-//         isOwner: user?._id === `${user_id}`,
-//         isOwner: req.session.currentUser._id === req.body.user_id,
-//         isOwner: req.session.currentUser._id === req.params.user_id
-//     }
-
-//     return userOwner
-// }
+}
 
 
-module.exports = { getUserRoles }
+module.exports = { getUserRoles, getIsOwner }
 

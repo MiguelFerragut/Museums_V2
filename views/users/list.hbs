@@ -17,40 +17,14 @@
                     {{#each users }}
 
                     <tr>
-                        {{#if ../userRoles.isUser}}
                         <td>
                             <h3>{{ username }}</h3>
                         </td>
                         <td>
                             <a href="/users/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
                         </td>
-                        {{/if}}
 
-                        {{#if ../userRoles.isGuide}}
-                        <td>
-                            <h3>{{ username }}</h3>
-                        </td>
-                        <td>
-                            <a href="/users/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
-                        </td>
-                        {{/if}}
-
-                        {{#if ../userRoles.isManager}}
-                        <td>
-                            <h3>{{ username }}</h3>
-                        </td>
-                        <td>
-                            <a href="/users/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
-                        </td>
-                        {{/if}}
-
-                        {{!-- {{#if ../userOwner.isOwner}}
-                        <td>
-                            <h3>{{ username }}</h3>
-                        </td>
-                        <td>
-                            <a href="/users/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
-                        </td>
+                        {{#if ../userOwner}}
                         <td>
                             <a href="/users/edit/{{_id}}" class="btn btn-dark btn-sm">Edit</a>
                         </td>
@@ -59,15 +33,9 @@
                                 <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                             </form>
                         </td>
-                        {{/if}} --}}
+                        {{/if}}
 
                         {{#if ../userRoles.isAdmin}}
-                        <td>
-                            <h3>{{ username }}</h3>
-                        </td>
-                        <td>
-                            <a href="/users/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
-                        </td>
                         <td>
                             <a href="/users/edit/{{_id}}" class="btn btn-dark btn-sm">Edit</a>
                         </td>
