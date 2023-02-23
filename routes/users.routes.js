@@ -9,7 +9,7 @@ const { getUserRoles, getIsOwner } = require('./../utils/userRoles')
 
 
 router.get("/list", isLoggedIn, (req, res, next) => {
-    console.log(req.session.currentUser)                                                                //Aqui hay un console.log
+
     User
         .find()
         .select({ username: 1 })
@@ -38,7 +38,7 @@ router.get("/details/:user_id", isLoggedIn, (req, res, next) => {
 
 
 router.get("/edit/:user_id", isLoggedIn, checkUser, (req, res, next) => {
-    console.log(req.session.currentUser)                                                            //Aqui hay un console.log
+
     const { user_id } = req.params
 
     User

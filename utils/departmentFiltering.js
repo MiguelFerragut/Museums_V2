@@ -1,7 +1,7 @@
 const filterByDept = (departments, highlights) => {
 
-    return highlights.objectIDs.filter(elm => {
-        if (departments.objectIDs.includes(elm)) {
+    return highlights.filter(elm => {
+        if (departments.includes(elm)) {
             return elm
         }
     })

@@ -9,101 +9,57 @@ const { getUserRoles } = require('./../utils/userRoles')
 
 const metApi = require('../services/met.service')
 const { filterByDept } = require("../utils/departmentFiltering")
+const { filterAll } = require('../utils/allFilters')
 const { filterUniqueCountries } = require('../utils/filterUniqueCountries')
+
+const Country = require("../models/Country.model")
+const { count } = require("../models/Museum.model")
 const api = new metApi()
-
-
-//CREACION INDESEADA DE MUSEOS
-// router.get('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
-//     res.render('museums/new')
-// })
-
-// router.post('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
-
-//     const { name, description, cover, longitude, latitude } = req.body
-//     const location = {
-//         type: 'Point',
-//         coordinates: [longitude, latitude]
-//     }
-
-//     Museum
-//         .create({ name, description, cover, location })
-//         .then(() => res.redirect('/list'))
-//         .catch(err => next(err))
-// })
-
-
-//VISTA INDESEADA DE MUSEOS
-// router.get("/list", (req, res, next) => {
-
-//     Museum
-//         .find()
-//         .select({ name: 1 })
-//         .sort({ name: 1 })
-//         .then((museums => res.render('museums/list', {
-//             museums,
-//             userRoles: getUserRoles(req.session.currentUser)
-//         })))
-//         .catch(err => next(err))
-// })
 
 
 router.get('/filter', (req, res, next) => {
 
-    // let countries
+    const promises = [
+        Country.find().select({ name: 1 }).sort({ name: 1 }),
+        Department.find().select({ name: 1, reference: 1 }).sort({ name: 1 })
+    ]
 
-    // api
-    //     .getAllObjects()
-    //     .then(({ data: { objectIDs } }) => {
-
-    //         const promises = objectIDs.slice(0, 50).map(id => api.getSinglePiece(id))
-    //         return Promise.all(promises)
-    //     })
-    //     .then((values) => {
-    //         countries = filterUniqueCountries(values)
-    //         return Department
-    //             .find()
-    //             .select({ name: 1, reference: 1 })
-    //             .sort({ name: 1 })
-    //     })
-
-    // .then(departments => {
-    //     // console.log(countries, departments)
-    //     // res.render('museums/filter', { departments }, countries)
-    // })
-    //     .then(departments => {
-    //         console.log(countries, departments)
-    //         // res.render('museums/filter', { departments }, countries)
-    //     })
-    //     .catch(err => next(err))
-
-    Department
-        .find()
-        .select({ name: 1, reference: 1 })
-        .sort({ name: 1 })
-        .then(departments => res.render('museums/filter', { departments }))
+    Promise.all(promises)
+        .then(([countries, departments]) => res.render('museums/filter', { departments, countries }))
         .catch(err => next(err))
 
 })
 
 router.post("/filter", (req, res, next) => {
 
-    const { departments, query, highlights } = req.body
+    const { departments, query, isHighLight, isOnView, country } = req.body
+    const promises = [
+        api.getDeptsAndHighlights(departments, query, isHighLight),
+        api.getFilteredItems('isOnView', isOnView, country)
+    ]
 
-    console.log('This console ----------------------------------------------------------------------------->', departments, query, highlights)
+    return Promise.all(promises)
+        .then(([originalItems, secondItems]) => {
 
-    api
-        .getDeptsAndHighlights(departments, query, highlights)
-        .then(([departments, highlights]) => {
+            const departmentIDs = originalItems[0].data.objectIDs
+            const isHighligthIDs = originalItems[1].data.objectIDs
+            const onViewIDs = secondItems.data.objectIDs
 
-            let filtredItems = filterByDept(departments.data, highlights.data)
-            const promises = filtredItems.map(id => api.getSinglePiece(id))
+            let filtredItems = filterByDept(departmentIDs, isHighligthIDs)
+            let resultIDs = filterAll(filtredItems, onViewIDs)
+
+            const promises = resultIDs.map(id => api.getSinglePiece(id))
 
             return Promise.all(promises)
         })
         .then((values) => {
-            res.render('museums/pieces', { values })
+            const piecesInfo = values.map(({ title, primaryImage, department, artistDisplayName, objectID }) => {
+                return ({ title, primaryImage, department, artistDisplayName, objectID })
+            }).slice(0, 30)
+            console.log(piecesInfo)
+            res.render('museums/pieces', { values: piecesInfo })
         })
+        .catch(err => next(err))
 })
 
 //RUTA A DETALLES DE LA PIEZA

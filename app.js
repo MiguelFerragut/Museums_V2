@@ -7,7 +7,7 @@ const app = express()
 
 require("./config")(app)
 
-const projectName = "Museums"
+const projectName = "MET.NY"
 app.locals.appTitle = `${projectName}`
 
 require('./config/session.config')(app)

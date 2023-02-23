@@ -18,15 +18,22 @@ class MetApiService {
         return this.api.get(`/search?${parameter}=${parameterValue}&q=${query}`)
     }
 
-    getDeptsAndHighlights(parameter1, parameter2, parameter3) {
+    getDeptsAndHighlights(department, query, isHighLight) {
 
         const promises = [
-            this.getFilteredItems('departmentIds', parameter1, parameter2),
-            this.getFilteredItems('isHighlight', parameter3, 'sun')
+            this.getFilteredItems('departmentIds', department, query),
+            this.getFilteredItems('isHighlight', isHighLight, query)
         ]
 
         return Promise.all(promises)
     }
+
+    // getCountryAndIsOnView(isOnView, country) {
+
+    //     return this.getFilteredItems('isOnView', isOnView, country)
+
+
+    // }
 
     getAllObjects() {
         return this.api.get('/objects')

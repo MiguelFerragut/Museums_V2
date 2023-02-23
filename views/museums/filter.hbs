@@ -27,35 +27,47 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="true" id="isHighLight"
-                            aria-label="Checkbox for following text input" name="isHighLight">
+                        <input class="form-check-input mt-0 me-2" type="radio" value="true" id="yes" name="isHighLight"
+                            aria-label="Radio button for following text input">
+                        <label for="yes" class="me-2">Yes</label>
+
+                        <input class="form-check-input mt-0 me-2" type="radio" value="false" id="no" name="isHighLight"
+                            aria-label="Radio button for following text input">
+                        <label for="no">No</label>
                     </div>
-                    <label for="isHighLight" class="form-control">Do you want to see just the Highlights?</label>
+
+                    <label for="isHighLight" class="form-control" id="isHighLight">Do you want to see just the
+                        Highlights?</label>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" value="true" id="isOnView"
-                            aria-label="Checkbox for following text input" name="isOnView">
+                        <input class="form-check-input mt-0 me-2" type="radio" value="true" id="true" name="isOnView"
+                            aria-label="Radio button for following text input">
+                        <label for="true" class="me-2">Yes</label>
+
+                        <input class="form-check-input mt-0 me-2" type="radio" value="false" id="false" name="isOnView"
+                            aria-label="Radio button for following text input">
+                        <label for="false">No</label>
                     </div>
-                    <label for="isOnView" class="form-control">Do you want to see just the pieces that are currently on
-                        view?</label>
+
+                    <label for="isOnView" class="form-control" id="isOnView">
+                        Do you want to see just the pieces that are currently on view?</label>
                 </div>
 
                 <label for="country" class="form-label">Country: </label>
-                <input class="form-control" list="datalistOptions" id="country" placeholder="Type to search...">
+                <input class="form-control mb-3" list="datalistOptions" id="country" placeholder="Type to search...">
                 <datalist id="datalistOptions">
-                    <option value="France">
-                    <option value="Spain">
-                    <option value="China">
-                    <option value="India">
-                    <option value="Chicago">
+                    {{#each countries}}
+                    <option value="{{name}}">
+                        {{/each}}
                 </datalist>
+
+
 
                 <div class="mb-3">
                     <label for="query" class="form-label">Word</label>
                     <input type="text" class="form-control" id="query" name="query">
-                    <div class="form-text">Required.</div>
                 </div>
 
                 <div class="d-grid gap-2">

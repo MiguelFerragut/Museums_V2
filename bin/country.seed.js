@@ -24,7 +24,6 @@ Country
     .then(() => {
         return Country.insertMany(allCountries)
     })
-    // .then(countries => console.log("ESTAN EN LA DB?????", countries))
     .catch(e => console.log(e))
     .finally(() => mongoose.connection.close())
 
