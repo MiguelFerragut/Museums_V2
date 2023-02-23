@@ -108,7 +108,7 @@ router.post('/details/:user_id/:role', isLoggedIn, checkRole('MANAGER', 'ADMIN')
         .catch(err => next(err))
 })
 
-router.post('/addToFav/:piece_id', isLoggedIn, checkUser, (req, res, next) => {
+router.post('/addToFav/:piece_id', isLoggedIn, (req, res, next) => {
 
     const { piece_id } = req.params
     const user_id = req.session.currentUser._id
@@ -119,7 +119,7 @@ router.post('/addToFav/:piece_id', isLoggedIn, checkUser, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/removeFromFav/:piece_id', isLoggedIn, checkUser, (req, res, next) => {
+router.post('/removeFromFav/:piece_id', isLoggedIn, (req, res, next) => {
 
     const { piece_id } = req.params
     const user_id = req.session.currentUser._id

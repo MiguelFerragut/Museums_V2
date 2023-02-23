@@ -129,7 +129,7 @@ router.post('/delete/:event_id', isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, 
 })
 
 
-router.post('/joinEvent/:event_id', isLoggedIn, checkUser, (req, res, next) => {
+router.post('/joinEvent/:event_id', isLoggedIn, (req, res, next) => {
 
     const { event_id } = req.params
     const user_id = req.session.currentUser._id
@@ -140,7 +140,7 @@ router.post('/joinEvent/:event_id', isLoggedIn, checkUser, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/exitEvent/:event_id', isLoggedIn, checkUser, (req, res, next) => {
+router.post('/exitEvent/:event_id', isLoggedIn, (req, res, next) => {
 
     const { event_id } = req.params
     const user_id = req.session.currentUser._id
