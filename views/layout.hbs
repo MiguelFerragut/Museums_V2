@@ -14,7 +14,7 @@
 <body>
 
 
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
          <a class="navbar-brand" href="/">{{appTitle}}</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -27,16 +27,16 @@
                   <a class="nav-link" href="/">Home</a>
                </li>
 
-               <li class="nav-item bg-dark">
+               <li class="nav-item ">
                   <a class="nav-link" href="/museums/filter">Searcher</a>
                </li>
 
-               <li class="nav-item dropdown bg-dark">
-                  <a class="nav-link dropdown-toggle bg-dark" href="/events" role="button" data-bs-toggle="dropdown"
+               <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle " href="/events" role="button" data-bs-toggle="dropdown"
                      aria-expanded="false">Events</a>
-                  <ul class="dropdown-menu bg-dark">
-                     <li><a class="nav-link bg-dark" href="/events/list">List</a></li>
-                     <li><a class="nav-link bg-dark" href="/events/create">New Event</a></li>
+                  <ul class="dropdown-menu ">
+                     <li><a class="nav-link " href="/events/list">List</a></li>
+                     <li><a class="nav-link " href="/events/create">New Event</a></li>
                   </ul>
                </li>
 
@@ -45,18 +45,18 @@
                </li>
 
 
-               <li class="nav-item dropdown bg-dark">
-                  <a class="nav-link dropdown-toggle bg-dark" href="/users" role="button" data-bs-toggle="dropdown"
+               <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle " href="/users" role="button" data-bs-toggle="dropdown"
                      aria-expanded="false">Auth</a>
-                  <ul class="dropdown-menu bg-dark">
-                     <li><a class="nav-link bg-dark" href="/signup">Sign Up</a></li>
-                     <li><a class="nav-link bg-dark" href="/login">Log In</a></li>
+                  <ul class="dropdown-menu ">
+                     <li><a class="nav-link " href="/signup">Sign Up</a></li>
+                     <li><a class="nav-link " href="/login">Log In</a></li>
                      <li>
                         <hr class="dropdown-divider bg-dark">
                      </li>
                      <li>
                         <form action="/logout" method="POST">
-                           <button class="nav-link bg-dark">Log Out</button>
+                           <button class="nav-link">Log Out</button>
                         </form>
                      </li>
                   </ul>

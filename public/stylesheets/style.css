@@ -1,20 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
 img {
   width: 100%;
 }
 
+.hero {
+  /* background-image: url('../images/met.jpeg');
+  background-size: cover; */
+  height: 550px;
+  margin-top: 0;
+}
+
+.hero h1 {
+  font-size: 6rem;
+}
+
+.hero p {
+  font-size: 2rem;
+}
+
+.navbar {
+  background-color: #c2b1a0;
+}
+
+.dropdown-menu {
+  background-color: #ddd6d4;
+}
+
+.navbar button {
+  background-color: #ddd6d4;
+  border: none;
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'EB Garamond', serif;
   background-image: url('../images/output-onlinepngtools.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  margin-top: 80px;
 }
 
 a {
   color: #00b7ff;
 }
 
-npm h1 {
+h1 {
   color: 15px;
 }
 

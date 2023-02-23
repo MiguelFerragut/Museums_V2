@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container mb-4">
     <div class="row justify-content-center">
         <div class="card" style="width: 28rem;">
             <img src="{{event.cover}}" class="card-img-top mt-2" alt="{{event.title}}">
@@ -41,12 +41,23 @@
                 <li class="list-group-item"><b>Participants: </b> {{#each
                     event.participants}}<span>{{username}} |</span>{{/each}}</li>
 
-                <form action="/events/joinEvent/{{event._id}}" method="POST">
-                    <input type="submit" value="Join Event" class="btn btn-danger btn-sm">
-                </form>
-                <form action="/events/exitEvent/{{objectID}}" method="POST">
-                    <input type="submit" value="Leave Event" class="btn btn-danger btn-sm">
-                </form>
+                <div class="row">
+
+                    <div class="col-3">
+
+                        <form action="/events/joinEvent/{{event._id}}" method="POST" class="mt-3">
+                            <input type="submit" value="Join Event" class="btn btn-danger btn-sm">
+                        </form>
+                    </div>
+                    <div class="col-3">
+                        <form action="/events/exitEvent/{{objectID}}" method="POST" class="mt-3 mb-3">
+                            <input type="submit" value="Leave Event" class="btn btn-danger btn-sm">
+                        </form>
+
+                    </div>
+
+                </div>
+
             </ul>
 
             {{#if userRoles.isGuide}}
