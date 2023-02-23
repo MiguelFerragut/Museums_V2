@@ -13,62 +13,71 @@ const { filterUniqueCountries } = require('../utils/filterUniqueCountries')
 const api = new metApi()
 
 
-router.get('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
-    res.render('museums/new')
-})
+//CREACION INDESEADA DE MUSEOS
+// router.get('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
+//     res.render('museums/new')
+// })
 
-router.post('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
+// router.post('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
 
-    const { name, description, cover, longitude, latitude } = req.body
-    const location = {
-        type: 'Point',
-        coordinates: [longitude, latitude]
-    }
+//     const { name, description, cover, longitude, latitude } = req.body
+//     const location = {
+//         type: 'Point',
+//         coordinates: [longitude, latitude]
+//     }
 
-    Museum
-        .create({ name, description, cover, location })
-        .then(() => res.redirect('/list'))
-        .catch(err => next(err))
-})
+//     Museum
+//         .create({ name, description, cover, location })
+//         .then(() => res.redirect('/list'))
+//         .catch(err => next(err))
+// })
 
 
-router.get("/list", (req, res, next) => {
+//VISTA INDESEADA DE MUSEOS
+// router.get("/list", (req, res, next) => {
 
-    Museum
-        .find()
-        .select({ name: 1 })
-        .sort({ name: 1 })
-        .then((museums => res.render('museums/list', {
-            museums,
-            userRoles: getUserRoles(req.session.currentUser)
-        })))
-        .catch(err => next(err))
-})
+//     Museum
+//         .find()
+//         .select({ name: 1 })
+//         .sort({ name: 1 })
+//         .then((museums => res.render('museums/list', {
+//             museums,
+//             userRoles: getUserRoles(req.session.currentUser)
+//         })))
+//         .catch(err => next(err))
+// })
 
 
 router.get('/filter', (req, res, next) => {
 
-    let countries
+    // let countries
 
-    api
-        .getAllObjects()
-        .then(({ data: { objectIDs } }) => {
+    // api
+    //     .getAllObjects()
+    //     .then(({ data: { objectIDs } }) => {
 
-            const promises = objectIDs.slice(0, 50).map(id => api.getSinglePiece(id))
-            return Promise.all(promises)
-        })
-        .then((values) => {
-            countries = filterUniqueCountries(values)
-            return Department
-                .find()
-                .select({ name: 1, reference: 1 })
-                .sort({ name: 1 })
-        })
+    //         const promises = objectIDs.slice(0, 50).map(id => api.getSinglePiece(id))
+    //         return Promise.all(promises)
+    //     })
+    //     .then((values) => {
+    //         countries = filterUniqueCountries(values)
+    //         return Department
+    //             .find()
+    //             .select({ name: 1, reference: 1 })
+    //             .sort({ name: 1 })
+    //     })
 
-        .then(departments => {
-            console.log(countries, departments)
-            // res.render('museums/filter', { departments }, countries)
-        })
+    //     .then(departments => {
+    //         console.log(countries, departments)
+    //         // res.render('museums/filter', { departments }, countries)
+    //     })
+    //     .catch(err => next(err))
+
+    Department
+        .find()
+        .select({ name: 1, reference: 1 })
+        .sort({ name: 1 })
+        .then(departments => res.render('museums/filter', { departments }))
         .catch(err => next(err))
 
 })
@@ -77,10 +86,10 @@ router.post("/filter", (req, res, next) => {
 
     const { departments, query, highlights } = req.body
 
-    console.log(req.body)
+    console.log('This console ----------------------------------------------------------------------------->', departments, query, highlights)
 
     api
-        .getDeptsAndHighlights(departments, query)
+        .getDeptsAndHighlights(departments, query, highlights)
         .then(([departments, highlights]) => {
 
             let filtredItems = filterByDept(departments.data, highlights.data)

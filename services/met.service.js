@@ -18,11 +18,11 @@ class MetApiService {
         return this.api.get(`/search?${parameter}=${parameterValue}&q=${query}`)
     }
 
-    getDeptsAndHighlights(parameter1, parameter2) {
+    getDeptsAndHighlights(parameter1, parameter2, parameter3) {
 
         const promises = [
             this.getFilteredItems('departmentIds', parameter1, parameter2),
-            this.getFilteredItems('isHighlight', true, 'sun')
+            this.getFilteredItems('isHighlight', parameter3, 'sun')
         ]
 
         return Promise.all(promises)
