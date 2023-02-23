@@ -66,7 +66,7 @@ router.get('/filter', (req, res, next) => {
         })
 
         .then(departments => {
-            console.log(countries, departments)
+            // console.log(countries, departments)
             // res.render('museums/filter', { departments }, countries)
         })
         .catch(err => next(err))
