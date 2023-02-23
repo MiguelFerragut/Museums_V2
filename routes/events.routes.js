@@ -57,7 +57,6 @@ router.get("/list", (req, res, next) => {
 })
 
 
-//Events Filter                                                                    //OJO!  ESTA SIN HACER
 router.get("/filter", (req, res, next) => {
 
     res.render('events/filter')
@@ -75,7 +74,7 @@ router.get("/details/:event_id", (req, res, next) => {
 
     Event
         .findById(event_id)
-        .populate('guideName')                                         //¿De verdad necesito esto?
+        .populate('guideName')
         .populate('departments')
         .populate('participants')
         .then(event => {

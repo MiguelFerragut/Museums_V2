@@ -61,39 +61,28 @@
 
 <div class="container mt-3 mb-3">
     <div class="row d-flex justify-content-center">
-        <div class="col-6">
-            {{#each events}}
+
+        {{#each events}}
+        <div class="col-3">
             <div class="card" style="width: 28rem;">
-                <img src="{{event.cover}}" class="card-img-top mt-2" alt="{{event.title}}">
+                <img src="{{cover}}" class="card-img-top mt-2" alt="{{title}}">
                 <div class="card-body">
                     <h5 class="card-title"><b>Title: </b>{{event.title}}</h5>
                 </div>
 
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Guide: </b>{{event.guideName.username}}</li>
-                    <li class="list-group-item"> <b>Language:</b> {{event.language}}</li>
-                    <li class="list-group-item"><b>Department: </b>{{event.departments.[0].name}}</li>
-                    <li class="list-group-item"><b>Description: </b>{{event.description}}</li>
-                    <li class="list-group-item"><b>Date: </b>{{event.date}}</li>
-                    <li class="list-group-item"><b>Duration: </b>{{event.duration}} minutes</li>
+                    <li class="list-group-item"><b>Guide: </b>{{guideName.username}}</li>
+                    <li class="list-group-item"> <b>Language:</b> {{language}}</li>
+                    <li class="list-group-item"><b>Department: </b>{{departments.[0].name}}</li>
+                    <li class="list-group-item"><b>Description: </b>{{description}}</li>
+                    <li class="list-group-item"><b>Date: </b>{{date}}</li>
+                    <li class="list-group-item"><b>Duration: </b>{{duration}} minutes</li>
 
-                    <li class="list-group-item">
-                        <div class="mb-2 row mt-2">
-                            <div class="col">
-                                <label for="longitude" class="form-label">Longitude:</label>
-                                <input type="text" class="form-control" id="eventLongitud" name="longitude"
-                                    value="{{event.location.coordinates.[0]}}">
-                            </div>
-                            <div class="col">
-                                <label for="latitude" class="form-label mb-2">Latitude:</label>
-                                <input type="text" class="form-control" id="eventLatitude" name="latitude"
-                                    value="{{event.location.coordinates.[1]}}">
-                            </div>
-                        </div>
+                    <li class="list-group-item"><b>Participants: </b>
+                        {{#each participants}}
+                        <span>{{username}} |</span>
+                        {{/each}}
                     </li>
-
-                    <li class="list-group-item"><b>Participants: </b> {{#each
-                        event.participants}}<span>{{username}} |</span>{{/each}}</li>
                 </ul>
 
                 {{#if ../userOwner}}
@@ -106,10 +95,9 @@
                     </form>
                 </div>
                 {{/if}}
-
             </div>
-            {{/each}}
         </div>
+        {{/each}}
     </div>
 </div>
 
@@ -118,16 +106,17 @@
 
 <div class="container mt-3 mb-3">
     <div class="row d-flex justify-content-center">
-        <div class="col-6">
-            {{#each favs}}
 
-            <img src="{{piece.primaryImage}}" class="card-img-top" alt="{{piece.title}}">
+        {{#each favs}}
 
-            <p class="list-group-item"><b>Department: </b>{{piece.department}}</p>
-            <p class="list-group-item"><b>Artist: </b>{{piece.artistDisplayName}}</p>
-            <p class="list-group-item"><b>Description: </b>{{piece.description}}</p>
-            <p class="list-group-item"><b>Date: </b>{{piece.objectBeginDate}} - {{piece.objectEndDate}}</p>
-            <p class="list-group-item"><b>Country: </b>{{piece.country}}</p>
+        <div class="col-3">
+            <img src="{{primaryImage}}" class="card-img-top" alt="{{title}}">
+
+            <p class="list-group-item"><b>Department: </b>{{department}}</p>
+            <p class="list-group-item"><b>Artist: </b>{{artistDisplayName}}</p>
+            <p class="list-group-item"><b>Description: </b>{{description}}</p>
+            <p class="list-group-item"><b>Date: </b>{{objectBeginDate}} - {{objectEndDate}}</p>
+            <p class="list-group-item"><b>Country: </b>{{country}}</p>
 
             <hr>
 
@@ -136,13 +125,13 @@
                 <input type="submit" value="Add to Fav" class="btn btn-danger btn-sm">
             </form>
             <form action="/users/removeFromFav/{{objectID}}" method="POST">
-                <input type="submit" value="Remove to Fav" class="btn btn-danger btn-sm">
+                <input type="submit" value="Remove Fav" class="btn btn-danger btn-sm">
             </form>
 
             <a href="{{objectURL}}" target="_blank" class="btn btn-dark btn-lg">See more</a>
             {{/if}}
-
-            {{/each}}
         </div>
+
+        {{/each}}
     </div>
 </div>
