@@ -21,6 +21,8 @@
                         <td>
                             <a href="/museums/details/{{_id}}" class="btn btn-dark btn-sm">Details</a>
                         </td>
+
+                        {{#if ../userRoles.isManager}}
                         <td>
                             <a href="/museums/edit/{{_id}}" class="btn btn-dark btn-sm">Edit</a>
                         </td>
@@ -29,6 +31,18 @@
                                 <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                             </form>
                         </td>
+                        {{/if}}
+
+                        {{#if ../userRoles.isAdmin}}
+                        <td>
+                            <a href="/museums/edit/{{_id}}" class="btn btn-dark btn-sm">Edit</a>
+                        </td>
+                        <td>
+                            <form action="/museums/delete/{{_id}}" method="POST">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                            </form>
+                        </td>
+                        {{/if}}
                     </tr>
 
                     {{/each}}

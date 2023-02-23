@@ -16,7 +16,8 @@ router.get("/list", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER', 'ADMIN'), 
         .sort({ username: 1 })
         .then((users => res.render('users/list', {
             users,
-            userRoles: getUserRoles(req.session.currentUser)
+            userRoles: getUserRoles(req.session.currentUser),
+            // userOwner: getOwner(req.session.currentUser)
         })))
         .catch(err => next(err))
 })
@@ -28,7 +29,10 @@ router.get("/details/:user_id", isLoggedIn, checkRole('USER', 'GUIDE', 'MANAGER'
 
     User
         .findById(user_id)
-        .then(user => res.render('users/details', user))
+        .then(user => res.render('users/details', {
+            user,
+            userRoles: getUserRoles(req.session.currentUser)
+        }))
         .catch(err => next(err))
 })
 
@@ -43,7 +47,7 @@ router.get("/edit/:user_id", isLoggedIn, checkUser, (req, res, next) => {
             res.render('users/edit', {
                 user,
                 userRoles: getUserRoles(req.session.currentUser),
-                userOwner: getOwner(req.session.currentUser)
+                // userOwner: getOwner(req.session.currentUser)
             })
         })
         .catch(err => next(err))
@@ -61,7 +65,7 @@ router.post('/edit/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 })
 
 
-router.post('/delete/:user_id', isLoggedIn, checkUser, (req, res, next) => {
+router.post('/delete/:user_id', isLoggedIn, checkUser, (req, res, next) => {            //si solo meto el role de ADMIN no basta con checkUser
 
     const { user_id } = req.params
 

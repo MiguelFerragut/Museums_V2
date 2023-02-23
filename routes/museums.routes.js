@@ -16,7 +16,7 @@ router.get('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next
     res.render('museums/new')
 })
 
-router.post('/create', isLoggedIn, checkRole, (req, res, next) => {
+router.post('/create', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req, res, next) => {
 
     const { name, description, cover, longitude, latitude } = req.body
     const location = {
@@ -26,7 +26,7 @@ router.post('/create', isLoggedIn, checkRole, (req, res, next) => {
 
     Museum
         .create({ name, description, cover, location })
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/list'))
         .catch(err => next(err))
 })
 
@@ -37,7 +37,10 @@ router.get("/list", (req, res, next) => {
         .find()
         .select({ name: 1 })
         .sort({ name: 1 })
-        .then((museums => res.render('museums/list', { museums })))
+        .then((museums => res.render('museums/list', {
+            museums,
+            userRoles: getUserRoles(req.session.currentUser)
+        })))
         .catch(err => next(err))
 })
 
@@ -94,7 +97,10 @@ router.get("/details/:museum_id", (req, res, next) => {
 
     Museum
         .findById(museum_id)
-        .then(museum => res.render('museums/details', museum))
+        .then(museum => res.render('museums/details', {
+            museum,
+            userRoles: getUserRoles(req.session.currentUser)
+        }))
         .catch(err => next(err))
 })
 
@@ -125,7 +131,7 @@ router.post('/edit/:museum_id', isLoggedIn, checkRole('MANAGER', 'ADMIN'), (req,
 
     Museum
         .findByIdAndUpdate(museum_id, { name, description, cover, location })
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/list'))
         .catch(err => next(err))
 })
 

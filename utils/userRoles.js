@@ -15,9 +15,14 @@ const getUserRoles = user => {
 
 //     const userOwner = {
 
-//         isOwner: user?._id === _id
+//         isOwner: user?._id === `${user_id}`,
+//         isOwner: req.session.currentUser._id === req.body.user_id,
+//         isOwner: req.session.currentUser._id === req.params.user_id
 //     }
+
+//     return userOwner
 // }
 
 
 module.exports = { getUserRoles }
+

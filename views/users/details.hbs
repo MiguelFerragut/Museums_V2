@@ -10,13 +10,48 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card" style="width: 28rem;">
-            <img src="{{avatar}}" class="card-img-top" alt="{{username}}">
+
+            {{#if userRoles.isUser}}
+            <img src="{{user.avatar}}" class="card-img-top" alt="{{user.username}}">
             <div class="card-body">
-                <h5 class="card-title"><b>Name: </b>{{username}}</h5>
+                <h5 class="card-title"><b>Name: </b>{{user.username}}</h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>Email: </b>{{email}}</li>
-                <li class="list-group-item"><b>Role: </b>{{role}}</li>
+                <li class="list-group-item"><b>Email: </b>{{user.email}}</li>
+                <li class="list-group-item"><b>Role: </b>{{user.role}}</li>
+            </ul>
+            {{/if}}
+
+            {{#if userRoles.isGuide}}
+            <img src="{{user.avatar}}" class="card-img-top" alt="{{user.username}}">
+            <div class="card-body">
+                <h5 class="card-title"><b>Name: </b>{{user.username}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Email: </b>{{user.email}}</li>
+                <li class="list-group-item"><b>Role: </b>{{user.role}}</li>
+            </ul>
+            {{/if}}
+
+            {{#if userRoles.isManager}}
+            <img src="{{user.avatar}}" class="card-img-top" alt="{{user.username}}">
+            <div class="card-body">
+                <h5 class="card-title"><b>Name: </b>{{user.username}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Email: </b>{{user.email}}</li>
+                <li class="list-group-item"><b>Role: </b>{{user.role}}</li>
+            </ul>
+            {{/if}}
+
+            {{#if userRoles.isAdmin}}
+            <img src="{{user.avatar}}" class="card-img-top" alt="{{user.username}}">
+            <div class="card-body">
+                <h5 class="card-title"><b>Name: </b>{{user.username}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Email: </b>{{user.email}}</li>
+                <li class="list-group-item"><b>Role: </b>{{user.role}}</li>
             </ul>
             <div class="card-body d-flex justify-content-between">
                 <a href="/users/edit/{{_id}}" class="btn btn-dark btn-lg">Edit</a>
@@ -24,6 +59,8 @@
                     <input type="submit" value="Delete" class="btn btn-danger btn-lg">
                 </form>
             </div>
+            {{/if}}
+
         </div>
     </div>
 </div>

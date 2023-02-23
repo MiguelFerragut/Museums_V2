@@ -9,7 +9,7 @@ const uploaderMiddleware = require('../middlewares/uploader.middleware')
 const { isLoggedIn, checkRole } = require('../middlewares/route-guard')
 
 
-router.get('/create', isLoggedIn, (req, res, next) => {
+router.get('/create', isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, res, next) => {
 
     Department
         .find()

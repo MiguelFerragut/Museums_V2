@@ -19,26 +19,26 @@
                     <div class="col">
                         <label for="longitude" class="form-label">Location Longitude</label>
                         <input type="text" class="form-control" id="museumLongitud" name="longitude"
-                            value="{{location.coordinates.[0]}}">
+                            value="{{museum.location.coordinates.[0]}}">
                         <div class="form-text">Reqired.</div>
                     </div>
                     <div class="col">
                         <label for="latitude" class="form-label">Location Latitude</label>
                         <input type="text" class="form-control" id="museumLatitude" name="latitude"
-                            value="{{location.coordinates.[1]}}">
+                            value="{{museum.location.coordinates.[1]}}">
                         <div class="form-text">Required.</div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="museumName" name="name" value="{{name}}">
+                    <input type="text" class="form-control" id="museumName" name="name" value="{{museum.name}}">
                 </div>
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description:</label>
                     <textarea class="form-control" id="museumDescription" rows="3" name="description"
-                        value="{{description}}"></textarea>
+                        value="{{museum.description}}"></textarea>
                 </div>
 
                 <div class="mb-3">
