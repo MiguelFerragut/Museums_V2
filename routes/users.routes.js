@@ -77,7 +77,8 @@ router.get("/edit/:user_id", isLoggedIn, checkUser, (req, res, next) => {
 
 router.post('/edit/:user_id', isLoggedIn, checkUser, (req, res, next) => {
 
-    const { username, email, avatar } = req.body
+    const { username, email } = req.body
+    const avatar = req.file?.path
     const { user_id } = req.params
 
     User

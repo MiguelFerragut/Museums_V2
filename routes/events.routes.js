@@ -98,6 +98,8 @@ router.get("/edit/:event_id", isLoggedIn, checkRole('GUIDE', 'ADMIN'), (req, res
 
     Event
         .findById(event_id)
+        .populate('guideName')
+        .populate('departments')
         .then(event => { res.render('events/edit', event) })
         .catch(err => next(err))
 })
