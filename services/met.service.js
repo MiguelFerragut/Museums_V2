@@ -9,6 +9,7 @@ class MetApiService {
         })
     }
 
+
     getAllDepartments() {
         return this.api.get('/departments')
     }
@@ -27,7 +28,11 @@ class MetApiService {
         return Promise.all(promises)
     }
 
-    getSinglePiece(id) {
+    getAllObjects() {
+        return this.api.get('/objects')
+    }
+
+    getSinglePiece(id) { //TO DO: REFACTORIZAR EL THEN
         return this.api.get(`/objects/${id}`).then(res => res.data)
     }
 }

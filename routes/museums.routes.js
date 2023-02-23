@@ -9,6 +9,7 @@ const { getUserRoles } = require('./../utils/userRoles')
 
 const metApi = require('../services/met.service')
 const { filterByDept } = require("../utils/departmentFiltering")
+const { filterUniqueCountries } = require('../utils/filterUniqueCountries')
 const api = new metApi()
 
 
@@ -47,18 +48,36 @@ router.get("/list", (req, res, next) => {
 
 router.get('/filter', (req, res, next) => {
 
-    Department
-        .find()
-        .select({ name: 1, reference: 1 })
-        .sort({ name: 1 })
-        .then(departments => res.render('museums/filter', { departments }))
+    let countries
+
+    api
+        .getAllObjects()
+        .then(({ data: { objectIDs } }) => {
+
+            const promises = objectIDs.slice(0, 50).map(id => api.getSinglePiece(id))
+            return Promise.all(promises)
+        })
+        .then((values) => {
+            countries = filterUniqueCountries(values)
+            return Department
+                .find()
+                .select({ name: 1, reference: 1 })
+                .sort({ name: 1 })
+        })
+
+        .then(departments => {
+            console.log(countries, departments)
+            // res.render('museums/filter', { departments }, countries)
+        })
         .catch(err => next(err))
 
 })
 
 router.post("/filter", (req, res, next) => {
 
-    const { departments, query } = req.body
+    const { departments, query, highlights } = req.body
+
+    console.log(req.body)
 
     api
         .getDeptsAndHighlights(departments, query)
@@ -70,7 +89,6 @@ router.post("/filter", (req, res, next) => {
             return Promise.all(promises)
         })
         .then((values) => {
-            console.log(values)
             res.render('museums/pieces', { values })
         })
 })
