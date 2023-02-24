@@ -26,6 +26,8 @@
                 </div>
 
                 <div class="input-group mb-3">
+                    <label for="isHighLight" class="form-control" id="isHighLight">Do you want to see just the
+                        Highlights?</label>
                     <div class="input-group-text">
                         <input class="form-check-input mt-0 me-2" type="radio" value="true" id="yes" name="isHighLight"
                             aria-label="Radio button for following text input">
@@ -36,11 +38,11 @@
                         <label for="no">No</label>
                     </div>
 
-                    <label for="isHighLight" class="form-control" id="isHighLight">Do you want to see just the
-                        Highlights?</label>
                 </div>
 
                 <div class="input-group mb-3">
+                    <label for="isOnView" class="form-control" id="isOnView">
+                        Do you want to see just the pieces that are currently on view?</label>
                     <div class="input-group-text">
                         <input class="form-check-input mt-0 me-2" type="radio" value="true" id="true" name="isOnView"
                             aria-label="Radio button for following text input">
@@ -51,8 +53,6 @@
                         <label for="false">No</label>
                     </div>
 
-                    <label for="isOnView" class="form-control" id="isOnView">
-                        Do you want to see just the pieces that are currently on view?</label>
                 </div>
 
                 <label for="country" class="form-label">Country: </label>
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-dark block">Search.</button>
+                    <button type="submit" class="btn btn-dark block">Search</button>
                 </div>
 
                 {{#if errorMessage}}

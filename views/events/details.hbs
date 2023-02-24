@@ -20,8 +20,8 @@
                 <li class="list-group-item"><b>Language: </b> {{event.language}}</li>
                 <li class="list-group-item"><b>Department: </b>{{event.departments.[0].name}}</li>
                 <li class="list-group-item"><b>Description: </b>{{event.description}}</li>
-                <li class="list-group-item"><b>Date: </b>{{event.date}}</li>
-                <li class="list-group-item"><b>Duration: </b>{{event.duration}} minutes</li>
+                <li class="list-group-item"><b>Date: </b>{{event.date.day}}</li>
+                <li class="list-group-item"><b>Duration: </b>{{event.date.duration}} minutes</li>
 
                 <li class="list-group-item"><b>Participants: </b> {{#each
                     event.participants}}<span>{{username}} |</span>{{/each}}</li>

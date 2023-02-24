@@ -13,31 +13,31 @@
 
         <div class="col-md-6">
 
-            <form action="/users/edit/{{_id}}" method="POST" enctype="multipart/form-data">
+            <form action="/users/edit/{{user._id}}" method="POST" enctype="multipart/form-data">
 
                 <div class="mb-3 row">
                     <div class="col">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email: </label>
                         <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
-                        <div class="form-text">Reqired.</div>
+                        <div class="form-text">Required</div>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="username" class="form-label">User name</label>
+                    <label for="username" class="form-label">User name: </label>
                     <input type="text" class="form-control" id="username" name="username" value="{{user.username}}">
                 </div>
 
                 <div class="mb-3">
 
                     <div class="d-grid gap-2 mb-3">
-                        <label for="avatar" class="form-label">Imagen</label>
+                        <label for="avatar" class="form-label">Image: </label>
                         <input type="file" class="form-control" id="avatar" name="avatar">
-                        <div class="form-text">Insert an image.</div>
+                        <div class="form-text">Insert image</div>
                     </div>
                 </div>
 
-                <input type="hidden" name="_id" value="{{_id}}">
+                <input type="hidden" name="_id" value="{{user._id}}">
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-dark block">Complete edition</button>

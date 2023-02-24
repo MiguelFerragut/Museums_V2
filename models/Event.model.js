@@ -21,13 +21,6 @@ const eventSchema = new Schema(
             type: String,
             set: string => string === '' ? 'https://www.nicepng.com/png/detail/125-1257327_events-icon-website-gray-events-icon-png-black.png' : string
         },
-        location: {
-            type: {
-                type: String,
-                required: true
-            },
-            coordinates: [Number],
-        },
         date: {
             day: {
                 type: Date,

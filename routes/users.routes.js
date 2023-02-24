@@ -3,6 +3,8 @@ const router = require("express").Router()
 const User = require("../models/User.model")
 const Event = require('../models/Event.model')
 
+const fileUploader = require('../middlewares/uploader.middleware');
+
 const { isLoggedIn, checkRole, checkUser } = require('../middlewares/route-guard')
 
 const { getUserRoles, getIsOwner } = require('./../utils/userRoles')
@@ -75,11 +77,13 @@ router.get("/edit/:user_id", isLoggedIn, checkUser, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/edit/:user_id', isLoggedIn, checkUser, (req, res, next) => {
+router.post('/edit/:user_id', fileUploader.single('avatar'), isLoggedIn, checkUser, (req, res, next) => {
 
     const { username, email } = req.body
     const avatar = req.file?.path
     const { user_id } = req.params
+
+    console.log(req.body, user_id)
 
     User
         .findByIdAndUpdate(user_id, { username, email, avatar })
