@@ -131,7 +131,7 @@ router.post('/removeFromFav/:piece_id', isLoggedIn, (req, res, next) => {
 
     User
         .findByIdAndUpdate(user_id, { $pull: { fav: piece_id } })
-        .then(() => res.redirect('/users/list'))
+        .then(() => res.redirect(`/users/details/${user_id}`))
         .catch(err => next(err))
 })
 
